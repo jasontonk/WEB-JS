@@ -1,3 +1,5 @@
 import SetupFormController from "./SetupForm/SetupFormController";
+import ElementPoolController from "./ElementPool/ElementPoolController";
 
-let formCtrl = new SetupFormController();
+let setupFormCtrl = new SetupFormController();
+let elementPoolCtrl = new ElementPoolController();
