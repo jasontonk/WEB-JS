@@ -2,4 +2,4 @@ import SetupFormController from "./SetupForm/SetupFormController";
 import ElementPoolController from "./ElementPool/ElementPoolController";
 
 let setupFormCtrl = new SetupFormController();
-let elementPoolCtrl = new ElementPoolController();
+let elementPoolCtrl = new ElementPoolController();//TODO add dragdrop controller

@@ -1,7 +1,8 @@
 export default class ElementPoolView{
 
-    constructor(controller, tileSize) {
-        this.controller = controller;
+    constructor(elementPoolController, dragAndDropController, tileSize) {
+        this.elementPoolController = elementPoolController;
+        this.dragAndDropController = dragAndDropController;
         this.parent = document.querySelector('#elementPool');
         this.tileSize = tileSize;
 
@@ -23,9 +24,9 @@ export default class ElementPoolView{
             let objectContainer = document.createElement('div');
             objectContainer.style.width = this.tileSize * object.width+'px';
             objectContainer.style.height = this.tileSize * object.height+'px';
-            objectContainer.style.border = '1px solid black';
-            objectContainer.style.margin = '5px';
-            objectContainer.addEventListener('click',  () => { this.controller.rotate(object) });
+            objectContainer.classList.add('--container');
+            objectContainer.addEventListener('dblclick',  () => { this.elementPoolController.rotate(object) });
+            //TODO add event for drag and drop
             objectContainer.innerText = ''+object.type;
             this.parent.append(objectContainer);
         })
