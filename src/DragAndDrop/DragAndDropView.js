@@ -1,9 +1,10 @@
 export default class DragAndDropView{
 
-    constructor(width, height) {
+    constructor(width, height, gridArray) {
         this.grid = document.getElementById('grid');
         this.width = width;
         this.height = height;
+        this.gridArray = gridArray;
 
         this.renderGrid();
     }
@@ -16,6 +17,10 @@ export default class DragAndDropView{
             }
             col.style.display = "inline-block";
             Array.prototype.forEach.call(col.children, child => {
+
+                for (let x = 0; x < this.gridArray[i].length; x++) {
+                    child.innerHTML = i + ", " + x;
+                }
 
                 child.style.width = "40px";
                 child.style.height = "40px";

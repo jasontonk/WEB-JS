@@ -8,12 +8,17 @@ export default class DragAndDrop{
     }
 
     setGrid(){
+        let cols = [];
+
+
         for (let i = 0; i < this.width; i++) {
-            this.gridArray.push(i);
+            let rows = [];
             for (let j = 0; j < this.height; j++) {
-                // array.push(i, j)
+                rows.push(j);
             }
+            this.gridArray.push(rows);
         }
+        //this.gridArray.push(cols);
         console.log(this.gridArray);
     }
 

@@ -5,7 +5,7 @@ export default class DragAndDropController {
 
     constructor() {
         this.grid = new DragAndDrop();
-        new DragAndDropView(this.grid.width, this.grid.height);
+        new DragAndDropView(this.grid.width, this.grid.height, this.grid.gridArray);
     }
 
 }
