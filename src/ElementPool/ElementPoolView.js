@@ -13,7 +13,7 @@ export default class ElementPoolView{
             this.parent.removeChild(this.parent.firstChild);
         }
 
-        this.parent.style.margin = '5px';
+        // this.parent.style.margin = '5px';
         this.parent.style.border = '1px solid black';
 
         let titleText = document.createElement('h1');
