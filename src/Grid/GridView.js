@@ -4,6 +4,7 @@ export default class GridView {
         this.grid = document.getElementById('grid');
         this.gridArray = gridArray;
         this.renderGrid();
+        this.selectbutton();
     }
 
     renderGrid(){
@@ -28,5 +29,18 @@ export default class GridView {
             //col.style.display = "inline-block";
             this.grid.append(col);
         }
+    }
+
+    selectbutton() {
+        let buttons = document.querySelectorAll('.btn-terrain');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                if(button.classList.contains('btn--active')){
+                    button.classList.remove('btn--active');
+                }else {
+                    button.classList.add('btn--active');
+                }
+            });
+        })
     }
 }
