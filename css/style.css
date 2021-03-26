@@ -39,3 +39,7 @@ img {
     box-shadow: 1px 1px 5px 0px rgba(179,177,179,1);
 }
 
+.--container{
+    border: 1px solid black;
+    margin: 5px;
+}
