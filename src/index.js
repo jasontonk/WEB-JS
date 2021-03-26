@@ -1,4 +1,4 @@
-import DragAndDropController from "./DragAndDrop/DragAndDropController";
+import GridController from "./Grid/GridController";
 
 
-let index = new DragAndDropController();
+let index = new GridController();

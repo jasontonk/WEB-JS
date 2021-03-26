@@ -1,4 +1,4 @@
-export default class DragAndDrop{
+export default class Grid {
 
     constructor() {
         this.width = 15;
