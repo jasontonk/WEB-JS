@@ -4,11 +4,6 @@ export default class Object {
         this.type = type;
         this.width = width;
         this.height = height;
-        switch (type){
-            case 'eetkraam':
-                this.width = 1;
-                this.height = 2;
-        }
     }
 
     rotate(){

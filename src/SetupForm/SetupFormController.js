@@ -10,4 +10,11 @@ export default class SetupFormController{
       console.log(button);
     }
 
+    calculate(){
+        let value =parseInt(document.getElementById("value").value,10);
+        let amount= parseInt(document.getElementById("amount").value,10);
+        if (!isNaN(value) && !isNaN(amount)) {
+            document.getElementById("total").innerHTML = value*amount;
+        }
+    }
 }
