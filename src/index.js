@@ -6,6 +6,6 @@ import GridController from "./Grid/GridController";
 let index = new GridController();
 
 
-
-let setupFormCtrl = new SetupFormController();
 let elementPoolCtrl = new ElementPoolController();
+let setupFormCtrl = new SetupFormController(elementPoolCtrl);
+
