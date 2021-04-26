@@ -1,6 +1,4 @@
-import SetupFormView from "./SetupFormView";
-import Object from "../ElementPool/Object";
-import SetupForm from "./SetupForm";
+import {SetupFormView} from "../Imports";
 
 export default class SetupFormController{
 

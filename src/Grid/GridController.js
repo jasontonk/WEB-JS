@@ -1,6 +1,4 @@
-import Grid from "./Grid";
-import GridView from "./GridView";
-import GridSquare from "./GridSquare";
+import {Grid, GridView, GridSquare} from "../Imports"
 
 export default class GridController {
 
