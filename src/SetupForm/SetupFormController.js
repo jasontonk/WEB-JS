@@ -1,4 +1,4 @@
-import SetupFormView from "./SetupFormView";
+import {SetupFormView} from "../Imports";
 
 export default class SetupFormController{
 

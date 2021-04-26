@@ -1,5 +1,4 @@
-import ElementPoolView from "./ElementPoolView";
-import Object from "./Object";
+import {ElementPoolView, Object} from "../Imports"
 
 export default class ElementPoolController{
 

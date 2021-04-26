@@ -1,7 +1,3 @@
-import DragAndDrop from './DragAndDrop';
-import Grid from "../Grid/Grid";
-import ElementPoolController from "../ElementPool/ElementPoolController";
-
 export default class DragAndDropController {
 
     constructor(grid) {
