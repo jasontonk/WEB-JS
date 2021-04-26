@@ -21,7 +21,10 @@ export default class ElementPoolView{
             let objectContainer = document.createElement('div');
             objectContainer.style.width = this.tileSize * object.width+'px';
             objectContainer.style.height = this.tileSize * object.height+'px';
+            objectContainer.style.backgroundColor = "red";
+
             objectContainer.classList.add('--container');
+            objectContainer.id = object.type;
             objectContainer.addEventListener('dblclick',  () => { this.elementPoolController.rotate(object) });
             //TODO add event for drag and drop
             objectContainer.innerText = ''+object.type;
