@@ -1,8 +1,14 @@
+import {ElementPoolController} from "../Imports"
+
 export default class DragAndDropController {
 
     constructor(grid) {
         this.gridArray = grid.gridArray;
+        this.pool = new ElementPoolController();
+        this.objects = this.pool.getObjects();
+
         this.generateEvents();
+        this.dragSrcEl = null;
     }
 
 
@@ -10,8 +16,11 @@ export default class DragAndDropController {
         this.style.opacity = '0.4';
 
         // get info of dragged item
-        this.dragSrcEl = this;
+        this.dragSrcEl = e.target;
 
+        console.log('1 ' + this.dragSrcEl);
+
+        // if (this.drag)
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/html', this.innerHTML);
         console.log(this)
@@ -33,11 +42,13 @@ export default class DragAndDropController {
         if (e.stopPropagation) {
             e.stopPropagation(); // stops the browser from redirecting.
         }
+        console.log('2 ' + this.dragSrcEl)
         if (this.dragSrcEl !== this) {
-            console.log('ongielie')
-            this.dropElement = e.target;
-            console.log(this.dropElement.getAttribute('data-row') + ", " + this.dropElement.getAttribute('data-col'));
-            this.innerHTML = e.dataTransfer.getData('text/html');
+            console.log(e.target.getAttribute('data-row') + ", " + e.target.getAttribute('data-col'));
+
+
+
+            // this.innerHTML = e.dataTransfer.getData('text/html');
         }
         return false;
     }

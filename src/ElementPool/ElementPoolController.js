@@ -11,6 +11,9 @@ export default class ElementPoolController{
     rotate(object){
         object.rotate();
         this.view.render(this.objects);
+    }
 
+    getObjects(){
+        return this.objects;
     }
 }

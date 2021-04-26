@@ -1,13 +1,3 @@
-import SetupFormController from "./SetupForm/SetupFormController";
-import ElementPoolController from "./ElementPool/ElementPoolController";
-import GridController from "./Grid/GridController";
-import DragAndDropController from "./DragAndDrop/DragAndDropController";
+import {MainController} from './Imports';
 
-
-
-
-let setupFormCtrl = new SetupFormController();
-let elementPoolCtrl = new ElementPoolController();
-
-let grid = new GridController();
-let drag = new DragAndDropController(grid);
+const app = new MainController();
