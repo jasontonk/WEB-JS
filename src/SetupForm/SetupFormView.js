@@ -106,11 +106,46 @@ export default class SetupFormView{
             }
         }
     }
-    renderTreesSelection(errorMessages = null){
+    renderAmountOfTrees(errorMessages = null){
+        this.label.innerText = 'Aantal Hoge bomen op het terrein';
+
+        this.small.className = '';
+        this.input.max = '125';
+        this.small.innerText = 'Een hoge boom vult een 1x1 vakje & kan niet verplaatst worden';
+
+        this.extraInputs
+
+        this.secondLabel = document.createElement('label');
+        this.secondLabel.innerHTML = 'Aantal Brede bomen op het terrein';
+        this.secondLabel.className = 'inputLabel';
+        this.secondInput = document.createElement('input');
+        this.secondInput.type = 'number';
+        this.secondInput.className = 'form-control';
+        this.secondSmall = document.createElement('small');
+        this.secondSmall.innerText = 'Een brede boom vult een 1x2 vakje & kan niet verplaatst worden';
+        this.parent.append(this.secondLabel, this.secondInput, this.secondSmall);
+
+        this.thirdLabel = document.createElement('label');
+        this.thirdLabel.innerHTML = 'Aantal Schaduw bomen op het terrein';
+        this.thirdLabel.className = 'inputLabel';
+        this.thirdInput = document.createElement('input');
+        this.thirdInput.type = 'number';
+        this.thirdInput.className = 'form-control';
+        this.thirdSmall = document.createElement('small');
+        this.thirdSmall.innerText = 'Een schaduw boom vult een 3x3 vakje & kan niet verplaatst worden';
+        this.parent.append(this.thirdLabel, this.thirdInput, this.thirdSmall);
+
+        console.log(errorMessages);
+        if(errorMessages !== null){
+            this.small.className = 'text-danger';
+            if(!errorMessages[0]){
+                this.small.innerText = 'Vul een nummer in';
+            }
+        }
 
     }
     renderAmountOfToilets(errorMessages = null){
-        this.label.innerText = 'Aantal toilet op het terrein:'
+        this.label.innerText = 'Aantal toiletten op het terrein:'
 
         this.input.max = 5;
 

@@ -1,3 +1,5 @@
+
+import SetupForm from "./SetupForm/SetupForm";
 import SetupFormView from "./SetupForm/SetupFormView";
 
 import Grid from "./Grid/Grid";
@@ -17,4 +19,5 @@ export {
     Grid,
     GridSquare,
     Object,
+    SetupForm,
 }
