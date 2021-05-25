@@ -7,9 +7,12 @@ export default class SetupFormView{
         this.parent = document.querySelector('#setupForm');
         this.label = document.getElementById('inputLabel');
         this.input = document.getElementById('inputField');
+        this.secondInput = document.getElementById('extraInputField1');
+        this.thirdInput = document.getElementById('extraInputField2');
         this.small = document.getElementById('inputHelp');
         this.nextButton = document.getElementById('nextButton');
-        this.nextButton.addEventListener('click', () => { this.controller.formNext( this.input.value );})
+        this.nextButton.addEventListener('click', () => { this.controller.formNext(
+            this.input.value, this.secondInput.value, this.thirdInput.value );})
         this.setResetButton();
     }
 
@@ -113,27 +116,27 @@ export default class SetupFormView{
         this.input.max = '125';
         this.small.innerText = 'Een hoge boom vult een 1x1 vakje & kan niet verplaatst worden';
 
-        this.extraInputs
-
-        this.secondLabel = document.createElement('label');
-        this.secondLabel.innerHTML = 'Aantal Brede bomen op het terrein';
+        this.secondLabel = document.getElementById('extraInputLabel1');
+        this.secondLabel.hidden = false;
+        this.secondLabel.innerText = 'Aantal Brede bomen op het terrein';
         this.secondLabel.className = 'inputLabel';
-        this.secondInput = document.createElement('input');
+        this.secondInput = document.getElementById('extraInputField1');
         this.secondInput.type = 'number';
         this.secondInput.className = 'form-control';
-        this.secondSmall = document.createElement('small');
+        this.secondSmall = document.getElementById('extraInputHelp1');
         this.secondSmall.innerText = 'Een brede boom vult een 1x2 vakje & kan niet verplaatst worden';
-        this.parent.append(this.secondLabel, this.secondInput, this.secondSmall);
+        // this.parent.append(this.secondLabel, this.secondInput, this.secondSmall);
 
-        this.thirdLabel = document.createElement('label');
-        this.thirdLabel.innerHTML = 'Aantal Schaduw bomen op het terrein';
+        this.thirdLabel = document.getElementById('extraInputLabel2');
+        this.thirdLabel.hidden = false;
+        this.thirdLabel.innerText = 'Aantal Schaduw bomen op het terrein';
         this.thirdLabel.className = 'inputLabel';
-        this.thirdInput = document.createElement('input');
+        this.thirdInput = document.getElementById('extraInputField2');
         this.thirdInput.type = 'number';
         this.thirdInput.className = 'form-control';
-        this.thirdSmall = document.createElement('small');
+        this.thirdSmall = document.getElementById('extraInputHelp2');
         this.thirdSmall.innerText = 'Een schaduw boom vult een 3x3 vakje & kan niet verplaatst worden';
-        this.parent.append(this.thirdLabel, this.thirdInput, this.thirdSmall);
+        // this.parent.append(this.thirdLabel, this.thirdInput, this.thirdSmall);
 
         console.log(errorMessages);
         if(errorMessages !== null){
@@ -145,7 +148,16 @@ export default class SetupFormView{
 
     }
     renderAmountOfToilets(errorMessages = null){
+        this.secondLabel.hidden = true;
+        this.secondInput.hidden = true;
+        this.secondSmall.hidden = true;
+
+        this.thirdLabel.hidden = true;
+        this.thirdInput.hidden = true;
+        this.thirdSmall.hidden = true;
+
         this.label.innerText = 'Aantal toiletten op het terrein:'
+
 
         this.input.max = 5;
 

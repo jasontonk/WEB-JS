@@ -26,6 +26,7 @@ export default class ElementPoolView{
             objectContainer.classList.add('--container');
             objectContainer.id = object.type;
             objectContainer.addEventListener('dblclick',  () => { this.elementPoolController.rotate(object) });
+            objectContainer.setAttribute('draggable', true);
             //TODO add event for drag and drop
             objectContainer.innerText = ''+object.type;
             this.parent.append(objectContainer);

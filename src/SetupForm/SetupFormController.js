@@ -13,34 +13,35 @@ export default class SetupFormController{
         this.view.renderName();
     }
 
-    formNext(value){
+    formNext(value, value2,  value3){
+        console.log(this.setupForm);
         if(this.setupForm.name === null){
             console.log('step one');
             this.setName(value);
         }
-        else if(this.setupForm.amountOfTents === 0){
+        else if(this.setupForm.amountOfTents === -1){
             console.log('step two');
             this.setAmountOfTents(value);
         }
-        else if(this.setupForm.amountOfFoodStalls === 0){
+        else if(this.setupForm.amountOfFoodStalls === -1){
             console.log('step three');
             this.setAmountOfFoodStalls(value);
         }
-        else if(this.setupForm.amountOfDrinkStalls === 0){
+        else if(this.setupForm.amountOfDrinkStalls === -1){
             console.log('step four');
             this.setAmountOfDrinkStalls(value);
         }
-        else if(this.setupForm.amountOfHeightTrees === 0 &&
-            this.setupForm.amountOfWideTrees === 0 &&
-            this.setupForm.amountOfShadowTrees){
+        else if(this.setupForm.amountOfHeightTrees === -1 &&
+            this.setupForm.amountOfWideTrees === -1 &&
+            this.setupForm.amountOfShadowTrees === -1){
             console.log('step five');
-            this.setAmountOfTrees(value);
+            this.setAmountOfTrees(value, value2, value3);
         }
-        else if(this.setupForm.amountOfToilets === 0){
+        else if(this.setupForm.amountOfToilets === -1){
             console.log('step six');
             this.setAmountOfToilets(value);
         }
-        else if(this.setupForm.amountOfTrashCans === 0){
+        else if(this.setupForm.amountOfTrashCans === -1){
             console.log('step seven');
             this.setAmountOfTrashCans(value);
         }
@@ -127,6 +128,7 @@ export default class SetupFormController{
         else if(this.setupForm.amountOfTents === 0 && (value < 0 || value > 4)){
             isAllowedNumber = false;
         }
+        console.log(this.setupForm);
         if(isFilled && isAllowedNumber){
             console.log(value);
             this.setupForm.amountOfDrinkStalls = parseInt(value);
@@ -138,22 +140,24 @@ export default class SetupFormController{
         }
     }
 
-    setAmountOfTrees(value) {
+    setAmountOfTrees(value, value2, value3) {
         this.view.renderAmountOfToilets( null);
-        // let isFilled = true;
-        // let isAllowedNumber = true;
-        //
-        // if(value === null || value === ''){
-        //     isFilled = false;
-        // }
-        // if(isFilled && isAllowedNumber){
-        //     console.log(value);
-        //     this.setupForm.amountOfHeightTrees = parseInt(value);
-        //     this.view.renderAmountOfToilets( null);
-        // }
-        // else{
-        //     this.view.renderAmountOfTrees( [isFilled, isAllowedNumber]);
-        // }
+        let allFilled = true;
+        let allAllowedNumber = true;
+
+        if(value === null || value === ''|| value2 === null || value2 === '' || value3 === null || value3 === ''){
+            allFilled = false;
+        }
+        if(allFilled && allAllowedNumber){
+            console.log(value);
+            this.setupForm.amountOfHeightTrees = parseInt(value);
+            this.setupForm.amountOfWideTrees = parseInt(value2);
+            this.setupForm.amountOfShadowTrees = parseInt(value3);
+            this.view.renderAmountOfToilets( null);
+        }
+        else{
+            this.view.renderAmountOfTrees( [allFilled, allAllowedNumber]);
+        }
     }
 
     setAmountOfToilets(value) {

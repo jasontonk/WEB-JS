@@ -2,9 +2,9 @@ import {ElementPoolView, Object, SetupForm} from "../Imports"
 
 export default class ElementPoolController{
 
-    constructor(dragAndDropController) {
+    constructor(dragAndDropController, gridController) {
         this.view = new ElementPoolView(this, dragAndDropController, 50);
-        this.objects = [new Object('eetkraam',1,1), new Object('drankkraam',1,2), new Object('toilet',1,3), new Object('tent',3,3)]
+        this.objects = [];
     }
 
     createObjects(setupForm){
@@ -60,7 +60,7 @@ export default class ElementPoolController{
                     break;
             }
         }
-
+        this.objects = objects;
         this.view.render(objects);
     }
 
