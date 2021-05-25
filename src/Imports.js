@@ -31,4 +31,5 @@ export {
     Grid,
     GridSquare,
     Object,
+    SetupForm,
 }
