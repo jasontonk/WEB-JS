@@ -2,10 +2,9 @@ import {ElementPoolController} from "../Imports"
 
 export default class DragAndDropController {
 
-    constructor(grid) {
-        this.gridArray = grid.gridArray;
-        this.pool = new ElementPoolController();
-        this.objects = this.pool.getObjects();
+    constructor(objects) {
+
+        this.objects = objects;
 
         this.generateEvents();
         this.dragSrcEl = null;

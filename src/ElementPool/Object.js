@@ -4,6 +4,9 @@ export default class Object {
         this.type = type;
         this.width = width;
         this.height = height;
+
+        this.xPos = -1;
+        this.yPos = -1;
     }
 
     rotate(){
@@ -11,4 +14,10 @@ export default class Object {
         this.height = this.width;
         this.width = tempHeight;
     }
+
+    setPosition(x, y){
+        this.xPos = x;
+        this.yPos = y;
+    }
+
 }

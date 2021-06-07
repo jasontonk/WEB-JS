@@ -1,5 +1,6 @@
 import MainController from "./controllers/MainController"
 
+import SetupForm from "./SetupForm/SetupForm";
 import SetupFormView from "./SetupForm/SetupFormView";
 import SetupFormController from "./SetupForm/SetupFormController";
 

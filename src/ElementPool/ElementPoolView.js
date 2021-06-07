@@ -17,7 +17,10 @@ export default class ElementPoolView{
         titleText.innerText = 'Sleep een object om het te plaatsen';
         this.parent.append(titleText);
 
-        objects.forEach(object => {
+        objects.filter(function (object){
+            return object.xPos < 0 && object.yPos < 0;
+            }
+        ).forEach(object => {
             let objectContainer = document.createElement('div');
             objectContainer.style.width = this.tileSize * object.width+'px';
             objectContainer.style.height = this.tileSize * object.height+'px';
@@ -27,7 +30,6 @@ export default class ElementPoolView{
             objectContainer.id = object.type;
             objectContainer.addEventListener('dblclick',  () => { this.elementPoolController.rotate(object) });
             objectContainer.setAttribute('draggable', true);
-            //TODO add event for drag and drop
             objectContainer.innerText = ''+object.type;
             this.parent.append(objectContainer);
         })
