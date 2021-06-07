@@ -13,6 +13,8 @@ import ElementPoolView from "./ElementPool/ElementPoolView";
 import ElementPoolController from "./ElementPool/ElementPoolController";
 import Object from "./ElementPool/Object";
 
+import SwitchView from "./Views/SwitchView";
+
 import DragAndDropController from "./DragAndDrop/DragAndDropController";
 
 export {
@@ -27,6 +29,7 @@ export {
     SetupFormView,
     GridView,
     ElementPoolView,
+    SwitchView,
 
     // Models
     Grid,
