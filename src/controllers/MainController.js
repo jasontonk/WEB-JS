@@ -3,6 +3,7 @@ import {
     ElementPoolController,
     GridController,
     DragAndDropController,
+    SwitchView
 } from "../Imports"
 
 export default class MainController {
@@ -15,18 +16,17 @@ export default class MainController {
         let drag = new DragAndDropController(grid);
 
         this.app = document.getElementById("app");
+        this.switchView = new SwitchView(this.app);
         this.checkNav();
     }
 
     SwitchToView(e) {
         switch (e.target.id){
             case "sim":
-                this.app.innerHTML = '';
-                this.renderSim();
+                this.switchView.renderSimulation();
                 break;
             case "home":
-                this.app.innerHTML = '';
-                this.renderHome();
+                this.switchView.renderHomePage();
                 break;
         }
 
@@ -37,11 +37,5 @@ export default class MainController {
         document.getElementById("home").addEventListener('click', evt => this.SwitchToView(evt), false);
     }
 
-    renderHome() {
-        this.app.innerHTML = "this is the homepage";
-    }
 
-    renderSim() {
-        this.app.innerHTML = "this is the Simulation";
-    }
 }
