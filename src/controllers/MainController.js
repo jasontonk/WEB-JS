@@ -13,8 +13,6 @@ export default class MainController {
         let setupFormCtrl = new SetupFormController(elementPoolCtrl);
 
 
-        let grid = new GridController();
-        let drag = new DragAndDropController(grid);
         this.weather = null;
         this.app = document.getElementById("app");
         this.switchView = new SwitchView(this.app);

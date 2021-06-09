@@ -1,28 +1,36 @@
 import {ElementPoolController} from "../Imports"
 
 export default class DragAndDropController {
-
     constructor(objects) {
 
         this.objects = objects;
-
-        this.generateEvents();
+        console.log("vincent is een oongie. ;' " + this.objects)
         this.dragSrcEl = null;
+        this.selectedObject = null;
     }
 
 
-    handleDragStart(e) {
-        this.style.opacity = '0.4';
+    handleDragStart(e, list) {
+        console.log("this is me" + e);
+        e.target.opacity = '0.4';
 
         // get info of dragged item
         this.dragSrcEl = e.target;
+        console.log("Vincent is smart man:  " + this);
+        console.log(e.target.id);
 
-        console.log('1 ' + this.dragSrcEl);
+        this.selectedObject = this;
+        this.selectedObject = this.selectedObject.find(object =>
+            object.type === e.target.id && object.xPos < 0 && object.yPos < 0
+        );
+
+
+        console.log('1 ' + this.selectedObject);
 
         // if (this.drag)
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/html', this.innerHTML);
-        console.log(this)
+        console.log(this);
     }
 
 
@@ -38,10 +46,12 @@ export default class DragAndDropController {
     }
 
     handleDrop(e) {
+        // console.log(e)
         if (e.stopPropagation) {
             e.stopPropagation(); // stops the browser from redirecting.
         }
-        console.log('2 ' + this.dragSrcEl)
+        console.log('1' + this.selectedObject);
+        console.log('2 ' + this.dragSrcEl);
         if (this.dragSrcEl !== this) {
             console.log(e.target.getAttribute('data-row') + ", " + e.target.getAttribute('data-col'));
 
@@ -53,11 +63,11 @@ export default class DragAndDropController {
     }
 
 
-    generateEvents(){
+    generateEvents(list){
         let items = document.querySelectorAll('.--container');
         console.log(items);
         items.forEach( (item) => {
-            item.addEventListener('dragstart', this.handleDragStart, false);
+            item.addEventListener('dragstart', this.handleDragStart.bind(list), false);
             item.addEventListener('dragend', this.handleDragEnd, false);
         });
 
