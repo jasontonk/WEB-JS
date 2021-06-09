@@ -1,4 +1,5 @@
-import {SetupFormView, SetupForm} from "../Imports";
+import {SetupFormView, SetupForm, Object} from "../Imports";
+import TerrainController from "../Terrain/TerrainController";
 
 export default class SetupFormController{
 
@@ -14,35 +15,27 @@ export default class SetupFormController{
     }
 
     formNext(value, value2,  value3){
-        console.log(this.setupForm);
         if(this.setupForm.name === null){
-            console.log('step one');
             this.setName(value);
         }
         else if(this.setupForm.amountOfTents === -1){
-            console.log('step two');
             this.setAmountOfTents(value);
         }
         else if(this.setupForm.amountOfFoodStalls === -1){
-            console.log('step three');
             this.setAmountOfFoodStalls(value);
         }
         else if(this.setupForm.amountOfDrinkStalls === -1){
-            console.log('step four');
             this.setAmountOfDrinkStalls(value);
         }
         else if(this.setupForm.amountOfHeightTrees === -1 &&
             this.setupForm.amountOfWideTrees === -1 &&
             this.setupForm.amountOfShadowTrees === -1){
-            console.log('step five');
             this.setAmountOfTrees(value, value2, value3);
         }
         else if(this.setupForm.amountOfToilets === -1){
-            console.log('step six');
             this.setAmountOfToilets(value);
         }
         else if(this.setupForm.amountOfTrashCans === -1){
-            console.log('step seven');
             this.setAmountOfTrashCans(value);
         }
         else{
@@ -62,7 +55,6 @@ export default class SetupFormController{
         }
 
         if(isFilled && isCorrectLength) {
-            console.log(value);
             this.setupForm.name = value;
             this.view.renderAmountOfTents();
         }
@@ -82,7 +74,6 @@ export default class SetupFormController{
             isAllowedNumber = false;
         }
         if(isFilled && isAllowedNumber){
-            console.log(value);
             this.setupForm.amountOfTents = parseInt(value);
             this.view.renderAmountOfFoodStalls( null, (this.setupForm.amountOfTents !== 0));
         }
@@ -105,7 +96,6 @@ export default class SetupFormController{
             isAllowedNumber = false;
         }
         if(isFilled && isAllowedNumber){
-            console.log(value);
             this.setupForm.amountOfFoodStalls = parseInt(value);
             this.view.renderAmountOfDrinkStalls( null, (this.setupForm.amountOfTents !== 0));
         }
@@ -128,9 +118,7 @@ export default class SetupFormController{
         else if(this.setupForm.amountOfTents === 0 && (value < 0 || value > 4)){
             isAllowedNumber = false;
         }
-        console.log(this.setupForm);
         if(isFilled && isAllowedNumber){
-            console.log(value);
             this.setupForm.amountOfDrinkStalls = parseInt(value);
             this.view.renderAmountOfTrees( null);
         }
@@ -148,8 +136,10 @@ export default class SetupFormController{
         if(value === null || value === ''|| value2 === null || value2 === '' || value3 === null || value3 === ''){
             allFilled = false;
         }
+        else if(value < 0 || value2 < 0 || value3 < 0){
+            allAllowedNumber = false;
+        }
         if(allFilled && allAllowedNumber){
-            console.log(value);
             this.setupForm.amountOfHeightTrees = parseInt(value);
             this.setupForm.amountOfWideTrees = parseInt(value2);
             this.setupForm.amountOfShadowTrees = parseInt(value3);
@@ -171,9 +161,8 @@ export default class SetupFormController{
             isAllowedNumber = false;
         }
         if(isFilled && isAllowedNumber){
-            console.log(value);
             this.setupForm.amountOfToilets = parseInt(value);
-            this.maxTrashCans = 6;//TODO calculate amount of trashcans
+            this.maxTrashCans = this.calculateMaxAmountOfTrashcans();
             this.view.renderAmountOfTrashCans( null, this.maxTrashCans);
         }
         else{
@@ -192,15 +181,47 @@ export default class SetupFormController{
             isAllowedNumber = false;
         }
         if(isFilled && isAllowedNumber){
-            console.log(value);
             console.log(this.setupForm);
             this.setupForm.amountOfTrashCans = parseInt(value);
-            //TODO calculate amount of trashcans
             //TODO create new grid/terrein
-            this.elementsPoolController.createObjects(this.setupForm);
+            let terrainController = new TerrainController(this.setupForm)
+            // this.elementsPoolController.createObjects(this.setupForm);
         }
         else{
             this.view.renderAmountOfTrashCans([isFilled, isAllowedNumber], this.maxTrashCans);
         }
     }
+
+    calculateMaxAmountOfTrashcans(){
+        let availablesquares = 225;
+        for (let key in this.setupForm) {
+            switch (key){
+                case 'amountOfTents':
+                    availablesquares -= 3*3*this.setupForm[key];
+                    break;
+                case 'amountOfFoodStalls':
+                    availablesquares -= 1*1*this.setupForm[key];
+                    break;
+                case 'amountOfDrinkStalls':
+                    availablesquares -= 1*2*this.setupForm[key];
+                    break;
+                case 'amountOfHeightTrees':
+                    availablesquares -= 1*1*this.setupForm[key];
+                    break;
+                case 'amountOfWideTrees':
+                    availablesquares -= 2*1*this.setupForm[key];
+                    break;
+                case 'amountOfShadowTrees':
+                    availablesquares -= 3*3*this.setupForm[key];
+                    break;
+                case 'amountOfToilets':
+                    availablesquares -= 1*3*this.setupForm[key];
+                    break;
+                default:
+                    break;
+            }
+        }
+        return Math.round(availablesquares * 0.05);
+    }
+
 }

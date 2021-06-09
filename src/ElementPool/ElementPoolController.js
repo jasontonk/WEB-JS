@@ -2,22 +2,15 @@ import {ElementPoolView, Object, SetupForm} from "../Imports"
 
 export default class ElementPoolController{
 
-    constructor(dragAndDropController, gridController) {
-        this.view = new ElementPoolView(this, dragAndDropController, 50);
+    constructor() {
+        this.view = null;
         this.objects = [];
     }
 
     createObjects(setupForm){
-        console.log('Test');
         let objects = [];
-        console.log(setupForm);
-        console.log('Test 2 ')
         for (let key in setupForm) {
-            console.log(`${key}: ${setupForm[key]}`);
             switch (key){
-                case 'name':
-                    //TODO set name
-                    break;
                 case 'amountOfTents':
                     for(let i = 0; i < setupForm[key]; i++){
                         objects.push(new Object('tent', 3, 3));
@@ -35,17 +28,29 @@ export default class ElementPoolController{
                     break;
                 case 'amountOfHeightTrees':
                     for(let i = 0; i < setupForm[key]; i++){
-                        //TODO randomly place trees on grid
+                        let object = new Object('hoge boom', 1, 1);
+                        object.xPos = Math.round(Math.random()*15)
+                        object.yPos = Math.round(Math.random()*15)
+                        //TODO check if coordinate is already in use
+                        objects.push(object);
                     }
                     break;
                 case 'amountOfWideTrees':
                     for(let i = 0; i < setupForm[key]; i++){
-                        //TODO randomly place trees on grid
+                        let object = new Object('brede boom', 1, 2);
+                        object.xPos = Math.round(Math.random()*15)
+                        object.yPos = Math.round(Math.random()*15)
+                        //TODO check if coordinate is already in use
+                        objects.push(object);
                     }
                     break;
                 case 'amountOfShadowTrees':
                     for(let i = 0; i < setupForm[key]; i++){
-                        //TODO randomly place trees on grid
+                        let object = new Object('schaduw boom', 3, 3);
+                        object.xPos = Math.round(Math.random()*15)
+                        object.yPos = Math.round(Math.random()*15)
+                        //TODO check if coordinate is already in use
+                        objects.push(object);
                     }
                     break;
                 case 'amountOfToilets':
@@ -58,14 +63,20 @@ export default class ElementPoolController{
                         objects.push(new Object('prullenbak', 1, 1));
                     }
                     break;
+                default:
+                    break;
             }
         }
         this.objects = objects;
-        this.view.render(objects);
+        return this.objects;
     }
 
     rotate(object){
         object.rotate();
         this.view.render(this.objects);
+    }
+
+    getObjects(){
+        return this.objects;
     }
 }

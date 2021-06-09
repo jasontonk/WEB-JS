@@ -55,7 +55,6 @@ export default class SetupFormView{
         this.input.max = '25';
         this.input.placeholder = '0'
 
-        console.log(errorMessages);
         if(errorMessages === null){
             this.small.className = '';
             this.small.innerText = 'Minimaal 0 & maximaal 25';
@@ -80,7 +79,6 @@ export default class SetupFormView{
             this.small.innerText = 'Minimaal 0 & maximaal 6';
         }
 
-        console.log(errorMessages);
         if(errorMessages !== null){
             this.small.className = 'text-danger';
             if(!errorMessages[0]){
@@ -101,7 +99,6 @@ export default class SetupFormView{
             this.small.innerText = 'Minimaal 0 & maximaal 4';
         }
 
-        console.log(errorMessages);
         if(errorMessages !== null){
             this.small.className = 'text-danger';
             if(!errorMessages[0]){
@@ -121,10 +118,11 @@ export default class SetupFormView{
         this.secondLabel.innerText = 'Aantal Brede bomen op het terrein';
         this.secondLabel.className = 'inputLabel';
         this.secondInput = document.getElementById('extraInputField1');
-        this.secondInput.type = 'number';
+        this.secondInput.hidden = false;
         this.secondInput.className = 'form-control';
         this.secondSmall = document.getElementById('extraInputHelp1');
         this.secondSmall.innerText = 'Een brede boom vult een 1x2 vakje & kan niet verplaatst worden';
+        this.secondSmall.hidden = false;
         // this.parent.append(this.secondLabel, this.secondInput, this.secondSmall);
 
         this.thirdLabel = document.getElementById('extraInputLabel2');
@@ -132,13 +130,13 @@ export default class SetupFormView{
         this.thirdLabel.innerText = 'Aantal Schaduw bomen op het terrein';
         this.thirdLabel.className = 'inputLabel';
         this.thirdInput = document.getElementById('extraInputField2');
-        this.thirdInput.type = 'number';
+        this.thirdInput.hidden = false;
         this.thirdInput.className = 'form-control';
         this.thirdSmall = document.getElementById('extraInputHelp2');
         this.thirdSmall.innerText = 'Een schaduw boom vult een 3x3 vakje & kan niet verplaatst worden';
+        this.thirdSmall.hidden = false;
         // this.parent.append(this.thirdLabel, this.thirdInput, this.thirdSmall);
 
-        console.log(errorMessages);
         if(errorMessages !== null){
             this.small.className = 'text-danger';
             if(!errorMessages[0]){
@@ -161,7 +159,6 @@ export default class SetupFormView{
 
         this.input.max = 5;
 
-        console.log(errorMessages);
         if(errorMessages === null){
             this.small.className = '';
             this.small.innerText = 'Minimaal 0 & maximaal 5';
@@ -178,7 +175,6 @@ export default class SetupFormView{
 
         this.input.max = maxTrashCans;
 
-        console.log(errorMessages);
         if(errorMessages === null){
             this.small.className = '';
             this.small.innerText = 'Minimaal 0 & maximaal ' + maxTrashCans.toString();
