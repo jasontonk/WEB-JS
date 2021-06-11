@@ -3,7 +3,7 @@ export default class GridView {
     constructor(width, height, gridArray) {
         this.grid = document.getElementById('grid');
         this.gridArray = gridArray;
-        // this.renderSimulation();
+        this.renderSimulation();
         this.renderGrid();
     }
 
@@ -47,6 +47,21 @@ export default class GridView {
                                 let trashimg = new Image();
                                 trashimg.src = 'https://i.pinimg.com/originals/f0/13/ac/f013ac551d3eb4bead0b2a0cf5e60dd1.png';
                                 ctx.drawImage(trashimg, i * offsetX, j * offsetY, 40, 40);
+                                break;
+                            case "hoge boom":
+                                let highimg = new Image();
+                                highimg.src = 'https://www.onzenatuur.be/media/cache/750_width/uploads/media/5e78da18df700/shutterstock-671579608.jpg';
+                                ctx.drawImage(highimg, i * offsetX, j * offsetY, 40, 40);
+                                break;
+                            case "shaduw boom":
+                                let shadowimg = new Image();
+                                shadowimg.src = 'https://thumbs.dreamstime.com/z/shadow-tree-vector-101778300.jpg';
+                                ctx.drawImage(shadowimg, i * offsetX, j * offsetY, 40, 40);
+                                break;
+                            case "brede boom":
+                                let widewimg = new Image();
+                                widewimg.src = 'https://image.shutterstock.com/image-photo/oak-tree-isolated-on-white-260nw-79172758.jpg';
+                                ctx.drawImage(widewimg, i * offsetX, j * offsetY, 40, 40);
                                 break;
                         }
                     }else {
