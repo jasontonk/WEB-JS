@@ -1,13 +1,14 @@
-import {SetupFormView, SetupForm, Object} from "../Imports";
+import {SetupFormView, SetupForm, Object, MainController} from "../Imports";
 import TerrainController from "../Terrain/TerrainController";
 
 export default class SetupFormController{
 
-    constructor(elementsPoolController) {
+    constructor(elementsPoolController, MainController) {
         this.elementsPoolController = elementsPoolController;
         this.view = new SetupFormView(this);
         this.setupForm = new SetupForm();
         this.view.renderName();
+        this.maincontroller = MainController;
     }
     reset(){
         this.setupForm = new SetupForm();
@@ -37,9 +38,8 @@ export default class SetupFormController{
         }
         else if(this.setupForm.amountOfTrashCans === -1){
             this.setAmountOfTrashCans(value);
-        }
-        else{
-
+            let audio = new Audio(`assets/43336082_applause-02.mp3`);
+            audio.play();
         }
     }
 
