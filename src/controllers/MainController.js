@@ -10,7 +10,7 @@ export default class MainController {
 
     constructor() {
         let elementPoolCtrl = new ElementPoolController();
-
+        let setupFormCtrl = new SetupFormController(elementPoolCtrl);
 
         this.weather = null;
         this.app = document.getElementById("app");
@@ -67,8 +67,8 @@ export default class MainController {
         });
 
         const locations = {
-            '1850144': 'Tokyo',
-            '5392171': 'Zeist',
+            '1850144': 'Zeist',
+            '5392171': 'Tokyo',
         }
 
         for (const cityId in locations) {

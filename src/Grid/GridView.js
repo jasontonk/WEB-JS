@@ -5,10 +5,31 @@ export default class GridView {
         this.objectArray = objectArray;
         this.renderSimulation();
         this.renderGrid();
-        this.selectbutton();
     }
 
-    renderGrid(){
+
+    renderSimulation() {
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#00FF00";
+        let offsetY = 40;
+        let offsetX = 40;
+        let img = new Image();
+        img.src = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
+        for (let i = 0; i < this.objectArray.length; i++) {
+            let ongie = this.objectArray[i];
+            ctx.fillRect(i * offsetX, 0, 40, 40);
+                for (let j = 0; j < ongie.length; j++) {
+                    let object =this.objectArray[i][j].object
+                    if (object != null && object.type === "toilet"){
+                        ctx.drawImage(img, i * offsetX, j * offsetY, 50, 38);
+                    }
+                    ctx.fillRect(i * offsetX, j * offsetY, 40, 40);
+                }
+        }
+    }
+
+    renderGrid() {
         for (let i = 0; i < this.objectArray.length; i++) {
 
             // Columns are i. Rows are j.
@@ -34,26 +55,5 @@ export default class GridView {
             //col.style.display = "inline-block";
             this.grid.append(col);
         }
-    }
-
-    renderSimulation(){
-        let canvas = document.getElementById('canvas');
-        let ctx = canvas.getContext("2d");
-        console.log("ongie " + canvas);
-        ctx.fillStyle = "#FF0000";
-        ctx.fillRect(10, 10, 150, 80);
-    }
-
-    selectbutton() {
-        let buttons = document.querySelectorAll('.btn-terrain');
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                if(button.classList.contains('btn--active')){
-                    button.classList.remove('btn--active');
-                }else {
-                    button.classList.add('btn--active');
-                }
-            });
-        })
     }
 }
