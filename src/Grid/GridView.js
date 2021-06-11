@@ -110,7 +110,6 @@ export default class GridView {
             let col = document.createElement("div");
 
             for (let j = 0; j < ongie.length; j++) {
-                console.log("Rendering grid")
                 let divi = document.createElement("div");
                 //
                 //divi.innerHTML = i + ", " + j;

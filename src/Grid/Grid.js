@@ -20,14 +20,32 @@ export default class Grid {
         }
     }
 
-    setObject(object){
-        let x = object.xPos;
-        let y = object.yPos;
+    setObject(x, y, object){
+        let isPossible = true;
         for (let i = 0; i < object.width; i++){
+            if (!isPossible){
+                break;
+            }
             for (let j = 0; j < object.height; j++){
-                console.log(x + i + ' test ' + y + j);
-                this.gridArray[x+i][y+j].placeObject(object);
+                if ((y+j) < this.gridArray.length && (x+i) < this.gridArray[0].length) {
+                    if (!this.gridArray[x + i][y + j].isEmpty()) {
+                        isPossible = false;
+                        break;
+                    }
+                }
+                else{
+                    isPossible = false;
+                    break;
+                }
             }
         }
+        if (isPossible) {
+            for (let i = 0; i < object.width; i++) {
+                for (let j = 0; j < object.height; j++) {
+                    this.gridArray[x + i][y + j].placeObject(object);
+                }
+            }
+        }
+        return isPossible;
     }
 }

@@ -2,7 +2,8 @@ import {ElementPoolView, Object, SetupForm} from "../Imports"
 
 export default class ElementPoolController{
 
-    constructor() {
+    constructor(terrainController) {
+        this.terrainController = terrainController;
         this.view = null;
         this.objects = [];
     }
@@ -29,27 +30,18 @@ export default class ElementPoolController{
                 case 'amountOfHeightTrees':
                     for(let i = 0; i < setupForm[key]; i++){
                         let object = new Object('hoge boom', 1, 1);
-                        object.xPos = Math.round(Math.random()*15)
-                        object.yPos = Math.round(Math.random()*15)
-                        //TODO check if coordinate is already in use
                         objects.push(object);
                     }
                     break;
                 case 'amountOfWideTrees':
                     for(let i = 0; i < setupForm[key]; i++){
-                        let object = new Object('brede boom', 1, 2);
-                        object.xPos = Math.round(Math.random()*15)
-                        object.yPos = Math.round(Math.random()*15)
-                        //TODO check if coordinate is already in use
+                        let object = new Object('brede boom', 2, 1);
                         objects.push(object);
                     }
                     break;
                 case 'amountOfShadowTrees':
                     for(let i = 0; i < setupForm[key]; i++){
                         let object = new Object('schaduw boom', 3, 3);
-                        object.xPos = Math.round(Math.random()*15)
-                        object.yPos = Math.round(Math.random()*15)
-                        //TODO check if coordinate is already in use
                         objects.push(object);
                     }
                     break;
@@ -67,13 +59,16 @@ export default class ElementPoolController{
                     break;
             }
         }
+        console.log(objects);
         this.objects = objects;
         return this.objects;
     }
 
-    rotate(object){
-        object.rotate();
+    rotateObject(object){
+        let index = this.objects.indexOf(object);
+        this.objects[index].rotate();
         this.view.render(this.objects);
+        this.terrainController.dragAndDropController.generateEvents();
     }
 
     renderView(objects){
