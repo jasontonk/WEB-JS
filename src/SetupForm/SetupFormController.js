@@ -181,7 +181,6 @@ export default class SetupFormController{
             isAllowedNumber = false;
         }
         if(isFilled && isAllowedNumber){
-            console.log(this.setupForm);
             this.setupForm.amountOfTrashCans = parseInt(value);
             //TODO create new grid/terrein
             let terrainController = new TerrainController(this.setupForm)

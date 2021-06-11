@@ -9,12 +9,15 @@ export default class TerrainController{
         this.elementsPoolController = new ElementPoolController(this.dragAndDropController, this.gridController);
 
         let objects = this.elementsPoolController.createObjects(setupform);
-        console.log("asgfhjshfksahfkj"+objects);
 
-        this.terrain = new Terrain(1, setupform.name, objects, this.gridController.grid);
-        this.dragAndDropController = new DragAndDropController(objects);
+        this.terrain = new Terrain(this, setupform.name, objects, this.gridController.grid);
+        this.dragAndDropController = new DragAndDropController(this ,objects);
         this.elementsPoolController.view = new ElementPoolView(this.elementsPoolController, this.dragAndDropController,40, objects);
-        this.gridController.view = new GridView(this.terrain.grid.width,this.terrain.grid.height, this.terrain.grid.gridArray)
+        this.gridController.view = new GridView(this.terrain.getGridWidth(),this.terrain.getGridHeight(), this.terrain.getGridArray())
         this.dragAndDropController.generateEvents(objects);
+    }
+
+    placeObject(x, y, object){
+        return this.terrain.placeObject(x, y, object);
     }
 }

@@ -76,7 +76,8 @@ export default class ElementPoolController{
         this.view.render(this.objects);
     }
 
-    getObjects(){
-        return this.objects;
+    renderView(objects){
+        this.objects = objects;
+        this.view.render(objects);
     }
 }

@@ -1,41 +1,34 @@
 import {ElementPoolController} from "../Imports"
 
 export default class DragAndDropController {
-    constructor(objects) {
-
+    constructor(terrainController, objects) {
+        this.terrainController = terrainController;
         this.objects = objects;
-        console.log("vincent is een oongie. ;' " + this.objects)
         this.dragSrcEl = null;
         this.selectedObject = null;
     }
 
 
-    handleDragStart(e, list) {
-        console.log("this is me" + e);
+    handleDragStart(e) {
         e.target.opacity = '0.4';
-
         // get info of dragged item
         this.dragSrcEl = e.target;
-        console.log("Vincent is smart man:  " + this);
-        console.log(e.target.id);
-
-        this.selectedObject = this;
-        this.selectedObject = this.selectedObject.find(object =>
+        console.log(this.dragSrcEl);
+        this.selectedObject = this.objects.find(object =>
             object.type === e.target.id && object.xPos < 0 && object.yPos < 0
         );
 
-
-        console.log('1 ' + this.selectedObject);
+        console.log("--------------------------------------");
+        console.log(this.selectedObject);
 
         // if (this.drag)
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/html', this.innerHTML);
-        console.log(this);
     }
 
 
-    handleDragEnd() {
-        this.style.opacity = '1';
+    handleDragEnd(e) {
+        this.dragSrcEl.style.opacity = '1';
     }
 
     handleDragOver(e) {
@@ -46,35 +39,34 @@ export default class DragAndDropController {
     }
 
     handleDrop(e) {
-        // console.log(e)
         if (e.stopPropagation) {
             e.stopPropagation(); // stops the browser from redirecting.
         }
-        console.log('1' + this.selectedObject);
-        console.log('2 ' + this.dragSrcEl);
-        if (this.dragSrcEl !== this) {
-            console.log(e.target.getAttribute('data-row') + ", " + e.target.getAttribute('data-col'));
+        let y = e.target.getAttribute('data-row');
+        let x = e.target.getAttribute('data-col');
 
-
-
-            // this.innerHTML = e.dataTransfer.getData('text/html');
+        if (this.dragSrcEl !== null && this.selectedObject !== null) {
+            console.log("Hier plaats ik mijn item op index [" + x + "][" + y + "]");
+            if(this.terrainController.placeObject(x, y, this.selectedObject)){
+                this.terrainController.elementsPoolController.renderView(this.objects);
+            }
         }
+        this.generateEvents();
         return false;
     }
 
 
-    generateEvents(list){
+    generateEvents(){
         let items = document.querySelectorAll('.--container');
-        console.log(items);
         items.forEach( (item) => {
-            item.addEventListener('dragstart', this.handleDragStart.bind(list), false);
-            item.addEventListener('dragend', this.handleDragEnd, false);
+            item.addEventListener('dragstart', (e) => this.handleDragStart(e), false);
+            item.addEventListener('dragend', (e) => this.handleDragEnd(e), false);
         });
 
         let grid = document.querySelectorAll('.gridSquare');
         grid.forEach( (item) => {
-            item.addEventListener('dragover', this.handleDragOver, false);
-            item.addEventListener('drop', this.handleDrop, false);
+            item.addEventListener('dragover', (e) => this.handleDragOver(e), false);
+            item.addEventListener('drop', (e) => this.handleDrop(e), false);
         });
     }
 }
