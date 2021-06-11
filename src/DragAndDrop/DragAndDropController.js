@@ -11,24 +11,16 @@ export default class DragAndDropController {
 
     handleDragStart(e) {
         e.target.opacity = '0.4';
+
         // get info of dragged item
         this.dragSrcEl = e.target;
-        console.log(this.dragSrcEl);
         this.selectedObject = this.objects.find(object =>
             object.type === e.target.id && object.xPos < 0 && object.yPos < 0
         );
 
-        console.log("--------------------------------------");
-        console.log(this.selectedObject);
-
         // if (this.drag)
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('text/html', this.innerHTML);
-    }
-
-
-    handleDragEnd(e) {
-        this.dragSrcEl.style.opacity = '1';
     }
 
     handleDragOver(e) {
@@ -46,14 +38,20 @@ export default class DragAndDropController {
         let x = e.target.getAttribute('data-col');
 
         if (this.dragSrcEl !== null && this.selectedObject !== null) {
-            console.log("Hier plaats ik mijn item op index [" + x + "][" + y + "]");
             if(this.terrainController.placeObject(x, y, this.selectedObject)){
                 this.terrainController.elementsPoolController.renderView(this.objects);
                 this.terrainController.gridController.renderView();
             }
         }
+        this.resetSelection();
         this.generateEvents();
         return false;
+    }
+
+
+    resetSelection(){
+        this.selectedObject = null;
+        this.dragSrcEl = null;
     }
 
 
@@ -61,7 +59,6 @@ export default class DragAndDropController {
         let items = document.querySelectorAll('.--container');
         items.forEach( (item) => {
             item.addEventListener('dragstart', (e) => this.handleDragStart(e), false);
-            item.addEventListener('dragend', (e) => this.handleDragEnd(e), false);
         });
 
         let grid = document.querySelectorAll('.gridSquare');

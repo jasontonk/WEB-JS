@@ -20,9 +20,7 @@ export default class Grid {
         }
     }
 
-    setObject(object){
-        let x = object.xPos;
-        let y = object.yPos;
+    setObject(x, y, object){
         let isPossible = true;
         for (let i = 0; i < object.width; i++){
             if (!isPossible){
@@ -35,15 +33,19 @@ export default class Grid {
                         break;
                     }
                 }
-
-                //TODO check if all is possible to place
+                else{
+                    isPossible = false;
+                    break;
+                }
             }
         }
-        for (let i = 0; i < object.width; i++){
-            for (let j = 0; j < object.height; j++){
-                console.log(x + i + ' test ' + y + j);
-                this.gridArray[x+i][y+j].placeObject(object);
+        if (isPossible) {
+            for (let i = 0; i < object.width; i++) {
+                for (let j = 0; j < object.height; j++) {
+                    this.gridArray[x + i][y + j].placeObject(object);
+                }
             }
         }
+        return isPossible;
     }
 }
