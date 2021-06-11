@@ -10,6 +10,7 @@ export default class GridController {
     renderView(){
         this.view.setGridArray(this.terrainController.terrain.getGridArray());
         this.view.renderGrid();
+        this.view.renderSimulation();
     }
 
 
