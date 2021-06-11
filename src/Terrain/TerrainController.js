@@ -4,7 +4,7 @@ import Terrain from "./Terrain";
 export default class TerrainController{
 
     constructor(setupform) {
-        this.gridController = new GridController();
+        this.gridController = new GridController(this);
 
         this.elementsPoolController = new ElementPoolController(this.dragAndDropController, this.gridController);
 

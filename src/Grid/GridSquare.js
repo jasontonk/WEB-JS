@@ -6,6 +6,10 @@ export default class GridSquare{
         this.object = null;
     }
 
+    isEmpty(){
+        return this.object === null;
+    }
+
     placeObject(object){
         this.object = object;
     }
