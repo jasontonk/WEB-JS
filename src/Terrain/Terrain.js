@@ -22,10 +22,12 @@ export default class Terrain{
     }
 
     placeObject(x, y, object){
+        x = parseInt(x);
+        y = parseInt(y);
         let objectIndex = this.objects.indexOf(object);
-        console.log(objectIndex);
         this.objects[objectIndex].setPosition(x , y);
-        console.log(this.objects[objectIndex]);
+        this.grid.setObject(object);
+
         return true;
     }
 

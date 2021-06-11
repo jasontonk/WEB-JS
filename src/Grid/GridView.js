@@ -1,22 +1,26 @@
 export default class GridView {
 
-    constructor(width, height, objectArray) {
+    constructor(width, height, gridArray) {
         this.grid = document.getElementById('grid');
-        this.objectArray = objectArray;
-        this.renderSimulation();
+        this.gridArray = gridArray;
+        // this.renderSimulation();
         this.renderGrid();
-        this.selectbutton();
+    }
+
+    setGridArray(gridArray){
+        this.gridArray = gridArray;
     }
 
     renderGrid(){
-        for (let i = 0; i < this.objectArray.length; i++) {
+        this.grid.innerHTML = '';
+        for (let i = 0; i < this.gridArray.length; i++) {
 
             // Columns are i. Rows are j.
-            let ongie = this.objectArray[i];
+            let ongie = this.gridArray[i];
             let col = document.createElement("div");
 
             for (let j = 0; j < ongie.length; j++) {
-
+                console.log("Rendering grid")
                 let divi = document.createElement("div");
                 //
                 //divi.innerHTML = i + ", " + j;
@@ -27,7 +31,12 @@ export default class GridView {
                 divi.style.height = "40px";
                 divi.style.border = "1px dashed #FFF";
                 divi.style.borderWidth = "0.1px 0.1px 0.1px 0.1px";
-                divi.style.backgroundColor = "#42f56c"
+                if (this.gridArray[i][j].object === null) {
+                    divi.style.backgroundColor = "#42f56c";
+                } else {
+                    divi.innerText = this.gridArray[i][j].object.type;
+                    divi.style.backgroundColor = "#FF0000";
+            }
                 col.append(divi);
             }
 
@@ -42,18 +51,5 @@ export default class GridView {
         console.log("ongie " + canvas);
         ctx.fillStyle = "#FF0000";
         ctx.fillRect(10, 10, 150, 80);
-    }
-
-    selectbutton() {
-        let buttons = document.querySelectorAll('.btn-terrain');
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                if(button.classList.contains('btn--active')){
-                    button.classList.remove('btn--active');
-                }else {
-                    button.classList.add('btn--active');
-                }
-            });
-        })
     }
 }

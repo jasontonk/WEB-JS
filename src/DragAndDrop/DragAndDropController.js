@@ -49,6 +49,7 @@ export default class DragAndDropController {
             console.log("Hier plaats ik mijn item op index [" + x + "][" + y + "]");
             if(this.terrainController.placeObject(x, y, this.selectedObject)){
                 this.terrainController.elementsPoolController.renderView(this.objects);
+                this.terrainController.gridController.renderView();
             }
         }
         this.generateEvents();

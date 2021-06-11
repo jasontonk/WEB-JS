@@ -19,4 +19,15 @@ export default class Grid {
             this.gridArray.push(rows);
         }
     }
+
+    setObject(object){
+        let x = object.xPos;
+        let y = object.yPos;
+        for (let i = 0; i < object.width; i++){
+            for (let j = 0; j < object.height; j++){
+                console.log(x + i + ' test ' + y + j);
+                this.gridArray[x+i][y+j].placeObject(object);
+            }
+        }
+    }
 }
