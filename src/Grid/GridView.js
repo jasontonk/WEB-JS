@@ -22,7 +22,7 @@ export default class GridView {
                 for (let j = 0; j < ongie.length; j++) {
                     let object =this.objectArray[i][j].object
                     if (object != null && object.type === "toilet"){
-                        ctx.drawImage(img, i * offsetX, j * offsetY, 50, 38);
+                        ctx.drawImage(img, i * offsetX, j * offsetY, 40, 40);
                     }
                     ctx.fillRect(i * offsetX, j * offsetY, 40, 40);
                 }
