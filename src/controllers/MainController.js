@@ -10,7 +10,6 @@ export default class MainController {
 
     constructor() {
         let elementPoolCtrl = new ElementPoolController();
-        let setupFormCtrl = new SetupFormController(elementPoolCtrl);
 
 
         this.weather = null;

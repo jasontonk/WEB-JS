@@ -3,7 +3,9 @@ export default class GridView {
     constructor(width, height, objectArray) {
         this.grid = document.getElementById('grid');
         this.objectArray = objectArray;
-        this.renderGrid()
+        this.renderSimulation();
+        this.renderGrid();
+        this.selectbutton();
     }
 
     renderGrid(){
@@ -32,5 +34,26 @@ export default class GridView {
             //col.style.display = "inline-block";
             this.grid.append(col);
         }
+    }
+
+    renderSimulation(){
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext("2d");
+        console.log("ongie " + canvas);
+        ctx.fillStyle = "#FF0000";
+        ctx.fillRect(10, 10, 150, 80);
+    }
+
+    selectbutton() {
+        let buttons = document.querySelectorAll('.btn-terrain');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                if(button.classList.contains('btn--active')){
+                    button.classList.remove('btn--active');
+                }else {
+                    button.classList.add('btn--active');
+                }
+            });
+        })
     }
 }
