@@ -11,9 +11,7 @@ export default class MainController {
     constructor() {
         let elementPoolCtrl = new ElementPoolController();
 
-        let setupFormCtrl = new SetupFormController(elementPoolCtrl, this);
-        let grid = new GridController();
-        let drag = new DragAndDropController(grid);
+
         this.weather = null;
         this.app = document.getElementById("app");
         this.switchView = new SwitchView(this.app);

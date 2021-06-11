@@ -1,11 +1,11 @@
 export default class ElementPoolView{
 
-    constructor(elementPoolController, dragAndDropController, tileSize) {
+    constructor(elementPoolController, dragAndDropController, tileSize, objects) {
         this.elementPoolController = elementPoolController;
         this.dragAndDropController = dragAndDropController;
         this.parent = document.querySelector('#elementPool');
         this.tileSize = tileSize;
-
+        this.render(objects)
     }
 
     render(objects) {
