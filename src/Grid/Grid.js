@@ -23,6 +23,22 @@ export default class Grid {
     setObject(object){
         let x = object.xPos;
         let y = object.yPos;
+        let isPossible = true;
+        for (let i = 0; i < object.width; i++){
+            if (!isPossible){
+                break;
+            }
+            for (let j = 0; j < object.height; j++){
+                if ((y+j) < this.gridArray.length && (x+i) < this.gridArray[0].length) {
+                    if (!this.gridArray[x + i][y + j].isEmpty()) {
+                        isPossible = false;
+                        break;
+                    }
+                }
+
+                //TODO check if all is possible to place
+            }
+        }
         for (let i = 0; i < object.width; i++){
             for (let j = 0; j < object.height; j++){
                 console.log(x + i + ' test ' + y + j);
