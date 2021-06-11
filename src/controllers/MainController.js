@@ -12,7 +12,6 @@ export default class MainController {
         let elementPoolCtrl = new ElementPoolController();
 
         let setupFormCtrl = new SetupFormController(elementPoolCtrl, this);
-        // this.mySound = this.sound("assets/43336082_applause-02.mp3");
         let grid = new GridController();
         let drag = new DragAndDropController(grid);
         this.weather = null;
@@ -22,24 +21,6 @@ export default class MainController {
         this.loadDefaultLocation();
         this.renderWeatherOptions();
     }
-
-    // sound(src) {
-    //     this.sound = document.createElement("audio");
-    //     this.sound.src = src;
-    //     this.sound.setAttribute("preload", "auto");
-    //     this.sound.setAttribute("controls", "none");
-    //     this.sound.style.display = "none";
-    //     document.body.appendChild(this.sound);
-    //     this.play = function(){
-    //         this.sound.play();
-    //     }
-    //     this.stop = function(){
-    //         this.sound.pause();
-    //     }
-    // }
-    // playSound(){
-    //     this.mySound.play();
-    // }
 
     SwitchToView(e) {
         switch (e.target.id){
