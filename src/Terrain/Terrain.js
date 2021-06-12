@@ -6,7 +6,6 @@ export default class Terrain{
         this.id = id;
         this.name = name;
         if(grid === null) {
-            console.log('Bad constructor Terrain')
             this.objects = objects;
             this.grid = new Grid();
             objects.forEach((object) => {
@@ -21,7 +20,6 @@ export default class Terrain{
             });
         }
         else{
-            console.log('Good constructor terrain')
             this.objects = [];
             objects.forEach((object) => {
                 this.objects.push(new Object(object.type, object.width, object.height, object.xPos, object.yPos));
@@ -39,17 +37,16 @@ export default class Terrain{
     }
 
     getGridArray(){
-        console.log('__________________________________________');
-        console.log(this.grid);
-        console.log(this.grid.gridArray);
         return this.grid.gridArray;
     }
 
     placeObject(x, y, object){
         x = parseInt(x);
         y = parseInt(y);
+
         let objectIndex = this.objects.indexOf(object);
         if(this.grid.setObject(x, y, object)){
+
             this.objects[objectIndex].setPosition(x , y);
             return true;
         }

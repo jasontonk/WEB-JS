@@ -120,8 +120,6 @@ export default class GridView {
     }
 
     renderGrid(){
-        console.log('********************************************');
-        console.log(this.gridArray);
         this.grid.innerHTML = '';
         for (let i = 0; i < this.gridArray.length; i++) {
 
@@ -156,7 +154,6 @@ export default class GridView {
         }
     }
     renderGridControls(){
-        console.log('test');
         this.gridControl.innerHTML = '';
         this.gridControl.className = 'w-100';
         let resetButton = document.createElement("button");

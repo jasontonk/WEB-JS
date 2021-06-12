@@ -1,7 +1,7 @@
 export default class Object {
 
     constructor(type, width, height, xPos = null, yPos = null){
-        console.log('Good constructor object')
+
         this.type = type;
         this.width = width;
         this.height = height;

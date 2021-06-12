@@ -34,7 +34,6 @@ export default class TerrainController{
         else {
             this.switchTerrain(nextId);
         }
-        console.log(JSON.parse(this.localStorage.getItem(nextId.toString())));
     }
 
     switchTerrain(terrainIndex){
@@ -42,7 +41,7 @@ export default class TerrainController{
         this.localStorage.setItem(this.terrain.id.toString(), JSON.stringify(this.terrain));
         let newTerrain = JSON.parse(this.localStorage.getItem(terrainIndex.toString()));
         this.terrain = new Terrain(newTerrain.id, newTerrain.name, newTerrain.objects, newTerrain.grid);
-        console.log(this.terrain);
+        this.dragAndDropController.objects = this.terrain.objects;
         this.resetViews();
     }
 
@@ -63,13 +62,11 @@ export default class TerrainController{
     }
 
     resetViews(){
-        console.log(this.terrain);
-        console.log('render de views opnieuw')
         this.gridController.renderView();
         this.elementsPoolController.renderView(this.terrain.objects);
         this.dragAndDropController.generateEvents();
     }
     selectObject(col, row){
-        
+
     }
 }

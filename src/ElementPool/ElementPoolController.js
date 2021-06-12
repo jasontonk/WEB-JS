@@ -59,7 +59,6 @@ export default class ElementPoolController{
                     break;
             }
         }
-        console.log(objects);
         this.objects = objects;
         return this.objects;
     }

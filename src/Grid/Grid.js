@@ -5,27 +5,19 @@ export default class Grid {
     constructor(width = null, height = null, gridArray = null, objects = null) {
         this.gridArray = [];
         if (width === null || height === null || gridArray === null || objects === null){
-            console.log('Bad constructor grid')
             this.width = 15;
             this.height = 15;
             this.setGrid();
         }
         else {
-            console.log('Good constructor grid')
             this.width = width;
             this.height = height;
             gridArray.forEach((row) => {
                 let gridRow = []
-                console.log('???????????????????????????????????????')
-                console.log(row);
                 row.forEach((square) => {
-
                     let object = objects.find((object) => {
                         return square.object !== null && object.xPos === square.object.xPos && object.yPos === square.object.yPos
                     })
-                    console.log(objects);
-                    console.log(':::::::::::::::::::::::::::::::::::::::');
-                    console.log(object);
                     gridRow.push(new GridSquare(square.row, square.column, object))
                 })
                 this.gridArray.push(gridRow);

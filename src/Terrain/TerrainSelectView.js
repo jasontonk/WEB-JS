@@ -7,7 +7,6 @@ export default class TerrainSelectView{
     }
 
     render(){
-        console.log('hier kom ik')
         let terrains =this.terrainController.getTerrains();
         terrains.forEach((terrain) => {
             let button = document.createElement('button');
