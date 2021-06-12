@@ -15,6 +15,8 @@ import Object from "./ElementPool/Object";
 
 import SwitchView from "./Views/SwitchView";
 
+import SimulationController from "./controllers/SimulationController";
+
 import DragAndDropController from "./DragAndDrop/DragAndDropController";
 
 export {
@@ -24,6 +26,7 @@ export {
     ElementPoolController,
     GridController,
     DragAndDropController,
+    SimulationController,
 
     // Views
     SetupFormView,
