@@ -1,5 +1,6 @@
-export default class objectSettingsView {
+export default class ObjectSettingsView {
 
     constructor(terrainController) {
+
     }
 }

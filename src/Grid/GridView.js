@@ -153,6 +153,7 @@ export default class GridView {
             this.grid.append(col);
         }
     }
+
     renderGridControls(){
         this.gridControl.innerHTML = '';
         this.gridControl.className = 'w-100';

@@ -20,6 +20,7 @@ export default class GridController {
 
     lockGrid(){
         console.log('Terrein vastzetten');
+        this.terrainController.lockCurrentTerrain();
         //TODO lock terrain
     }
     selectObject(e){

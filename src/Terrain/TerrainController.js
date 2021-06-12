@@ -1,6 +1,7 @@
 import {DragAndDropController, ElementPoolController, ElementPoolView, GridController, GridView} from "../Imports";
 import Terrain from "./Terrain";
 import TerrainSelectView from "./TerrainSelectView";
+import ObjectSettingsView from "./ObjectSettingsView";
 
 export default class TerrainController{
 
@@ -19,6 +20,7 @@ export default class TerrainController{
         this.dragAndDropController.generateEvents(this.terrain.objects);
 
         this.terrainView = new TerrainSelectView(this);
+        this.objectSettingsView = new ObjectSettingsView();
     }
 
     addTerrain(setupform){
@@ -56,6 +58,11 @@ export default class TerrainController{
     placeObject(x, y, object){
         return this.terrain.placeObject(x, y, object);
     }
+
+    lockCurrentTerrain(){
+        this.terrain.lockTerrain();
+    }
+
     reset() {
         this.terrain.reset();
         this.resetViews();
@@ -65,8 +72,14 @@ export default class TerrainController{
         this.gridController.renderView();
         this.elementsPoolController.renderView(this.terrain.objects);
         this.dragAndDropController.generateEvents();
+        this.terrainView.render()
     }
-    selectObject(col, row){
 
+    selectObject(col, row) {
+        let object = this.terrain.getObjectOnGrid(col, row)
+        if (object !== null) {
+            this.objectSettingsView.render(object);
+        }
     }
+
 }

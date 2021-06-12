@@ -3,6 +3,7 @@ import {Grid, Object} from "../Imports";
 export default class Terrain{
 
     constructor(id, name, objects, grid = null) {
+        this.isLocked = false;
         this.id = id;
         this.name = name;
         if(grid === null) {
@@ -28,6 +29,9 @@ export default class Terrain{
         }
     }
 
+    lockTerrain(){
+        this.isLocked = true;
+    }
     getGridWidth(){
         return this.grid.width;
     }
@@ -41,30 +45,39 @@ export default class Terrain{
     }
 
     placeObject(x, y, object){
-        x = parseInt(x);
-        y = parseInt(y);
+        if(!this.isLocked) {
+            x = parseInt(x);
+            y = parseInt(y);
 
-        let objectIndex = this.objects.indexOf(object);
-        if(this.grid.setObject(x, y, object)){
+            let objectIndex = this.objects.indexOf(object);
+            if (this.grid.setObject(x, y, object)) {
 
-            this.objects[objectIndex].setPosition(x , y);
-            return true;
+                this.objects[objectIndex].setPosition(x, y);
+                return true;
+            }
         }
         return false;
     }
+
     reset(){
-        this.objects.forEach((object) => {
-            if(!object.type.includes('boom')){
-                object.setPosition(-1,-1);
-            }
-        });
-        let gridArray = this.getGridArray();
-        gridArray.forEach((row) => {
-            row.forEach((gridSquare) => {
-                if (gridSquare.object != null && !gridSquare.object.type.includes('boom')) {
-                    gridSquare.object = null;
+        if(!this.isLocked) {
+            this.objects.forEach((object) => {
+                if (!object.type.includes('boom')) {
+                    object.setPosition(-1, -1);
                 }
             });
-        });
+            let gridArray = this.getGridArray();
+            gridArray.forEach((row) => {
+                row.forEach((gridSquare) => {
+                    if (gridSquare.object != null && !gridSquare.object.type.includes('boom')) {
+                        gridSquare.object = null;
+                    }
+                });
+            });
+        }
+    }
+
+    getObjectOnGrid(col, row){
+        return this.grid.gridArray[col][row].object;
     }
 }

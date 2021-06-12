@@ -7,7 +7,8 @@ export default class TerrainSelectView{
     }
 
     render(){
-        let terrains =this.terrainController.getTerrains();
+        this.terrainSelector.innerHTML = '';
+        let terrains = this.terrainController.getTerrains();
         terrains.forEach((terrain) => {
             let button = document.createElement('button');
             button.innerText = terrain.name;
