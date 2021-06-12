@@ -11,11 +11,11 @@ export default class GridController {
         this.view.setGridArray(this.terrainController.terrain.getGridArray());
         this.view.renderGrid();
         this.view.renderSimulation();
+        this.view.renderGridControls();
     }
 
     resetGrid(){
-        console.log('reset the grid here');
-        //TODO reset grid
+        this.terrainController.reset();
     }
 
     lockGrid(){

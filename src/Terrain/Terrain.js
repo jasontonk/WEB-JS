@@ -2,8 +2,8 @@ import {Grid} from "../Imports";
 
 export default class Terrain{
 
-    constructor(terrainController, name, objects, grid) {
-        this.terrainController = terrainController;
+    constructor(id, name, objects, grid) {
+        this.id = id;
         this.name = name;
         this.objects = objects;
         this.grid = new Grid();
@@ -41,5 +41,20 @@ export default class Terrain{
             return true;
         }
         return false;
+    }
+    reset(){
+        this.objects.forEach((object) => {
+            if(!object.type.includes('boom')){
+                object.setPosition(-1,-1);
+            }
+        });
+        let gridArray = this.getGridArray();
+        gridArray.forEach((row) => {
+            row.forEach((gridSquare) => {
+                if (gridSquare.object != null && !gridSquare.object.type.includes('boom')) {
+                    gridSquare.object = null;
+                }
+            });
+        });
     }
 }

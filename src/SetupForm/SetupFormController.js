@@ -9,6 +9,7 @@ export default class SetupFormController{
         this.setupForm = new SetupForm();
         this.view.renderName();
         this.maincontroller = MainController;
+        this.terrainController = null;
     }
     reset(){
         this.setupForm = new SetupForm();
@@ -182,9 +183,13 @@ export default class SetupFormController{
         }
         if(isFilled && isAllowedNumber){
             this.setupForm.amountOfTrashCans = parseInt(value);
-            //TODO create new grid/terrein
-            let terrainController = new TerrainController(this.setupForm)
-            // this.elementsPoolController.createObjects(this.setupForm);
+            if (this.terrainController === null) {
+                this.terrainController = new TerrainController(this.setupForm)
+            }
+            else{
+                this.terrainController.addTerrain(this.setupForm);
+            }
+            this.reset();
         }
         else{
             this.view.renderAmountOfTrashCans([isFilled, isAllowedNumber], this.maxTrashCans);
