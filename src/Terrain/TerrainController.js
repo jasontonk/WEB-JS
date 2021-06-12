@@ -20,7 +20,7 @@ export default class TerrainController{
         this.dragAndDropController.generateEvents(this.terrain.objects);
 
         this.terrainView = new TerrainSelectView(this);
-        this.objectSettingsView = new ObjectSettingsView();
+        this.objectSettingsView = new ObjectSettingsView(this);
     }
 
     addTerrain(setupform){
@@ -80,6 +80,14 @@ export default class TerrainController{
         if (object !== null) {
             this.objectSettingsView.render(object);
         }
+        else{
+            this.objectSettingsView.hide();
+        }
+    }
+    saveObjectSettings(object, maxVisitors = null, openTime = null, clearTime = null,
+                       stallType = null, capacity = null){
+        let objectIndex = this.terrain.objects.indexOf(object);
+        this.terrain.objects[objectIndex].setOptions(maxVisitors, openTime, clearTime, stallType, capacity);
     }
 
 }
