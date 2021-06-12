@@ -1,24 +1,34 @@
-import {Grid} from "../Imports";
+import {Grid, Object} from "../Imports";
 
 export default class Terrain{
 
-    constructor(id, name, objects, grid) {
+    constructor(id, name, objects, grid = null) {
         this.id = id;
         this.name = name;
-        this.objects = objects;
-        this.grid = new Grid();
-        objects.forEach((object) => {
-            if (object.type === 'hoge boom' || object.type === 'schaduw boom' || object.type === 'brede boom'){
-                let isPlaced = false;
-                while (!isPlaced){
-                    if(this.placeObject(Math.random()*15, Math.random()*15, object)){
-                        isPlaced = true;
+        if(grid === null) {
+            console.log('Bad constructor Terrain')
+            this.objects = objects;
+            this.grid = new Grid();
+            objects.forEach((object) => {
+                if (object.type === 'hoge boom' || object.type === 'schaduw boom' || object.type === 'brede boom') {
+                    let isPlaced = false;
+                    while (!isPlaced) {
+                        if (this.placeObject(Math.random() * 15, Math.random() * 15, object)) {
+                            isPlaced = true;
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
+        else{
+            console.log('Good constructor terrain')
+            this.objects = [];
+            objects.forEach((object) => {
+                this.objects.push(new Object(object.type, object.width, object.height, object.xPos, object.yPos));
+            });
+            this.grid = new Grid(grid.width, grid.height, grid.gridArray, this.objects);
+        }
     }
-
 
     getGridWidth(){
         return this.grid.width;
@@ -29,6 +39,9 @@ export default class Terrain{
     }
 
     getGridArray(){
+        console.log('__________________________________________');
+        console.log(this.grid);
+        console.log(this.grid.gridArray);
         return this.grid.gridArray;
     }
 

@@ -1,5 +1,6 @@
 import {DragAndDropController, ElementPoolController, ElementPoolView, GridController, GridView} from "../Imports";
 import Terrain from "./Terrain";
+import TerrainSelectView from "./TerrainSelectView";
 
 export default class TerrainController{
 
@@ -16,6 +17,8 @@ export default class TerrainController{
         this.elementsPoolController.view = new ElementPoolView(this.elementsPoolController, this.dragAndDropController,40, this.terrain.objects);
         this.gridController.view = new GridView(this.terrain.getGridWidth(),this.terrain.getGridHeight(), this.terrain.getGridArray(), this.gridController)
         this.dragAndDropController.generateEvents(this.terrain.objects);
+
+        this.terrainView = new TerrainSelectView(this);
     }
 
     addTerrain(setupform){
@@ -37,17 +40,36 @@ export default class TerrainController{
     switchTerrain(terrainIndex){
 
         this.localStorage.setItem(this.terrain.id.toString(), JSON.stringify(this.terrain));
-        let newTerrain = this.localStorage.getItem(terrainIndex.toString())
-        this.terrain = newTerrain
+        let newTerrain = JSON.parse(this.localStorage.getItem(terrainIndex.toString()));
+        this.terrain = new Terrain(newTerrain.id, newTerrain.name, newTerrain.objects, newTerrain.grid);
+        console.log(this.terrain);
+        this.resetViews();
+    }
+
+    getTerrains(){
+        let terrains = []
+        for (let i = 0; i < this.localStorage.length; i++){
+            terrains.push(JSON.parse(this.localStorage.getItem(i.toString())));
+        }
+        return terrains;
     }
 
     placeObject(x, y, object){
         return this.terrain.placeObject(x, y, object);
     }
-    reset(){
+    reset() {
         this.terrain.reset();
+        this.resetViews();
+    }
+
+    resetViews(){
+        console.log(this.terrain);
+        console.log('render de views opnieuw')
         this.gridController.renderView();
         this.elementsPoolController.renderView(this.terrain.objects);
         this.dragAndDropController.generateEvents();
+    }
+    selectObject(col, row){
+        
     }
 }

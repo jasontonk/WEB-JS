@@ -8,6 +8,7 @@ export default class GridController {
     }
 
     renderView(){
+        console.log('rendering grid')
         this.view.setGridArray(this.terrainController.terrain.getGridArray());
         this.view.renderGrid();
         this.view.renderSimulation();
@@ -21,6 +22,12 @@ export default class GridController {
     lockGrid(){
         console.log('Terrein vastzetten');
         //TODO lock terrain
+    }
+    selectObject(e){
+        let col = e.target.getAttribute('data-col');
+        let row = e.target.getAttribute('data-row');
+        console.log(col + ' - ' + row);
+        this.terrainController.selectObject(col, row)
     }
 
 

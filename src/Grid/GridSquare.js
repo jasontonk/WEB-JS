@@ -1,9 +1,17 @@
 export default class GridSquare{
 
-    constructor(i, j) {
-        this.row = i;
-        this.column = j;
-        this.object = null;
+    constructor(row , column, object = null) {
+        this.row = row;
+        this.column = column;
+        if (object === null){
+            console.log('Bad constructor gridsquare')
+            this.object = null;
+        }
+        else{
+            console.log('Good constructor gridsquare')
+            this.placeObject(object);
+        }
+
     }
 
     isEmpty(){

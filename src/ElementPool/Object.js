@@ -1,12 +1,19 @@
 export default class Object {
 
-    constructor(type, width, height) {
+    constructor(type, width, height, xPos = null, yPos = null){
+        console.log('Good constructor object')
         this.type = type;
         this.width = width;
         this.height = height;
 
-        this.xPos = -1;
-        this.yPos = -1;
+        if (xPos === null || yPos === null){
+            this.xPos = -1;
+            this.yPos = -1;
+        }
+        else {
+            this.xPos = xPos;
+            this.yPos = yPos;
+        }
     }
 
     rotate(){

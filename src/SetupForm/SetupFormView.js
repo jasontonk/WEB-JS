@@ -28,6 +28,7 @@ export default class SetupFormView{
 
     renderName(errorMessages = null){
         this.input.value = '';
+        this.nextButton.innerText = 'Volgende';
         this.label.innerText = 'Naam van het terrein:'
 
         this.input.type = 'text';
@@ -180,6 +181,7 @@ export default class SetupFormView{
     }
     renderAmountOfTrashCans(errorMessages = null, maxTrashCans){
         this.input.value = '';
+        this.nextButton.innerText = 'Terrein aanmaken';
         this.label.innerText = 'Aantal prullenbakken op het terrein:'
 
         this.input.max = maxTrashCans;

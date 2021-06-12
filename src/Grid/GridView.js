@@ -120,31 +120,35 @@ export default class GridView {
     }
 
     renderGrid(){
+        console.log('********************************************');
+        console.log(this.gridArray);
         this.grid.innerHTML = '';
         for (let i = 0; i < this.gridArray.length; i++) {
 
             // Columns are i. Rows are j.
-            let ongie = this.gridArray[i];
+            let column = this.gridArray[i];
             let col = document.createElement("div");
 
-            for (let j = 0; j < ongie.length; j++) {
-                let divi = document.createElement("div");
+            for (let j = 0; j < column.length; j++) {
+                let div = document.createElement("div");
                 //
                 //divi.innerHTML = i + ", " + j;
-                divi.dataset.col = i.toString();
-                divi.dataset.row = j.toString();
-                divi.classList.add("gridSquare");
-                divi.style.width = "40px";
-                divi.style.height = "40px";
-                divi.style.border = "1px dashed #FFF";
-                divi.style.borderWidth = "0.1px 0.1px 0.1px 0.1px";
+                div.dataset.col = i.toString();
+                div.dataset.row = j.toString();
+                div.classList.add("gridSquare");
+                div.style.width = "40px";
+                div.style.height = "40px";
+                div.style.border = "1px dashed #FFF";
+                div.style.borderWidth = "0.1px 0.1px 0.1px 0.1px";
                 if (this.gridArray[i][j].object === null) {
-                    divi.style.backgroundColor = "#42f56c";
-                } else {
-                    divi.innerText = this.gridArray[i][j].object.type;
-                    divi.style.backgroundColor = "#FF0000";
-            }
-                col.append(divi);
+                    div.style.backgroundColor = "#42f56c";
+                }
+                else {
+                    div.innerText = this.gridArray[i][j].object.type;
+                    div.style.backgroundColor = "#FF0000";
+                }
+                div.addEventListener("click", (e) => this.gridController.selectObject(e))
+                col.append(div);
             }
 
             //col.style.display = "inline-block";
