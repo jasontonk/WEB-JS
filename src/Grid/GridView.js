@@ -1,10 +1,13 @@
 export default class GridView {
 
-    constructor(width, height, gridArray) {
+    constructor(width, height, gridArray, gridController) {
         this.grid = document.getElementById('grid');
+        this.gridControl = document.getElementById('grid-control');
         this.gridArray = gridArray;
+        this.gridController = gridController;
         this.renderSimulation();
         this.renderGrid();
+        this.renderGridControls();
     }
 
 
@@ -148,4 +151,21 @@ export default class GridView {
             this.grid.append(col);
         }
     }
+    renderGridControls(){
+        console.log('test');
+        this.gridControl.innerHTML = '';
+        this.gridControl.className = 'w-100';
+        let resetButton = document.createElement("button");
+        resetButton.innerText = 'Resetten';
+        resetButton.className = 'btn btn-outline-danger m-2 float-left';
+        resetButton.addEventListener('click', () => this.gridController.resetGrid());
+        this.gridControl.append(resetButton);
+
+        let lockButton = document.createElement("button");
+        lockButton.innerText = 'Vastzetten';
+        lockButton.className = 'btn btn-primary m-2 float-right';
+        lockButton.addEventListener('click', () => this.gridController.lockGrid());
+        this.gridControl.append(lockButton);
+    }
+
 }

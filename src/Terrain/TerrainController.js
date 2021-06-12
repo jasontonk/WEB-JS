@@ -13,7 +13,7 @@ export default class TerrainController{
         this.terrain = new Terrain(this, setupform.name, objects, this.gridController.grid);
         this.dragAndDropController = new DragAndDropController(this ,objects);
         this.elementsPoolController.view = new ElementPoolView(this.elementsPoolController, this.dragAndDropController,40, objects);
-        this.gridController.view = new GridView(this.terrain.getGridWidth(),this.terrain.getGridHeight(), this.terrain.getGridArray())
+        this.gridController.view = new GridView(this.terrain.getGridWidth(),this.terrain.getGridHeight(), this.terrain.getGridArray(), this.gridController)
         this.dragAndDropController.generateEvents(objects);
     }
 

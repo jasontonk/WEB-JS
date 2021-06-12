@@ -13,5 +13,15 @@ export default class GridController {
         this.view.renderSimulation();
     }
 
+    resetGrid(){
+        console.log('reset the grid here');
+        //TODO reset grid
+    }
+
+    lockGrid(){
+        console.log('Terrein vastzetten');
+        //TODO lock terrain
+    }
+
 
 }
