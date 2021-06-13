@@ -2,6 +2,7 @@ export default class SetupForm{
 
     constructor() {
         this.name = null;
+        this.maxVisitors = -1;
         this.amountOfTents = -1;
         this.amountOfFoodStalls = -1;
         this.amountOfDrinkStalls = -1;

@@ -28,12 +28,24 @@ export default class SetupFormView{
 
     renderName(errorMessages = null){
         this.input.value = '';
+        this.secondInput.value = '';
         this.nextButton.innerText = 'Volgende';
-        this.label.innerText = 'Naam van het terrein:'
+        this.label.innerText = 'Naam van het terrein:';
 
         this.input.type = 'text';
         this.input.maxLength = '20';
-        this.input.placeholder = 'Naam'
+        this.input.placeholder = 'Naam';
+
+        this.secondLabel = document.getElementById('extraInputLabel1');
+        this.secondLabel.hidden = false;
+        this.secondLabel.innerText = 'Maximaal aantal bezoekers op het terrein';
+        this.secondLabel.className = 'inputLabel';
+        this.secondInput = document.getElementById('extraInputField1');
+        this.secondInput.hidden = false;
+        this.secondInput.className = 'form-control';
+        this.secondSmall = document.getElementById('extraInputHelp1');
+        this.secondSmall.innerText = 'Minimaal 1 bezoeker';
+        this.secondSmall.hidden = false;
 
         if(errorMessages === null){
             this.small.className = '';
@@ -42,15 +54,21 @@ export default class SetupFormView{
         else{
             this.small.className = 'text-danger';
             if(!errorMessages[0]){
-                this.small.innerText = 'Vul een naam in.'
+                this.small.innerText = 'Vul een naam in.';
             }
             else if(!errorMessages[1]){
-                this.small.innerText = 'Maximaal 20 characters'
+                this.small.innerText = 'Maximaal 20 characters';
+            }
+            else if(!errorMessages[2]){
+                this.secondSmall.className = 'text-danger';
             }
         }
     }
     renderAmountOfTents(errorMessages = null){
         this.input.value = '';
+        this.secondLabel.hidden = true;
+        this.secondInput.hidden = true;
+        this.secondSmall.hidden = true;
         this.label.innerText = 'Aantal tenten op het terrein:'
 
         this.input.type = 'number';
@@ -131,6 +149,7 @@ export default class SetupFormView{
         this.secondSmall = document.getElementById('extraInputHelp1');
         this.secondSmall.innerText = 'Een brede boom vult een 1x2 vakje & kan niet verplaatst worden';
         this.secondSmall.hidden = false;
+        this.secondSmall.className = '';
         // this.parent.append(this.secondLabel, this.secondInput, this.secondSmall);
 
         this.thirdLabel = document.getElementById('extraInputLabel2');
@@ -148,7 +167,7 @@ export default class SetupFormView{
         if(errorMessages !== null){
             this.small.className = 'text-danger';
             if(!errorMessages[0]){
-                this.small.innerText = 'Vul een nummer in';
+                this.small.innerText = 'Vul alles in';
             }
         }
 
