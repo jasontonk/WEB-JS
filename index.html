@@ -6,8 +6,134 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="dist/main.js" defer></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-    beep boop im CROWDR!
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">CROWDR</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" id="home" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="sim">Simulation</a>
+                </li>
+            </ul>
+        </div>
+        <div class="form-inline my-2 my-lg-0">
+            <select class="form-control mr-sm-2" id="weather--select" aria-label="Search">
+            </select>
+            <img id="weather--image" src="" alt="" />
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid" id="app">
+    <div class="row">
+        <div class="col-md-4 p-3">
+            <div id="setupForm" class="m-1 border border-dark col-md-12 text-center">
+                <h4>Vul onderstaand formulier in om een nieuw terrein aan te maken</h4>
+                <form>
+                    <div class="form-group m-2">
+                        <label id="inputLabel">TerreinNaam</label>
+                        <input class="form-control" id="inputField" placeholder="Naam" required>
+                        <small id="inputHelp">max 20 characters</small>
+                        <br>
+                        <label id="extraInputLabel1" hidden></label>
+                        <input class="form-control" id="extraInputField1" type="number" hidden>
+                        <small id="extraInputHelp1"></small>
+                        <br>
+                        <label id="extraInputLabel2" hidden></label>
+                        <input class="form-control" id="extraInputField2" type="number" hidden>
+                        <small id="extraInputHelp2"></small>
+                    </div>
+                </form>
+                <div class="m-2 text-right">
+                    <button id="resetButton" class="btn btn-danger float-left">Reset</button>
+                    <button id="nextButton" class="btn btn-primary">Volgende</button>
+                </div>
+            </div>
+            <div id="elementPool" class="m-1 border border-dark --scroll">
+            </div>
+        </div>
+        <div class="row">
+        </div>
+        <div class="grid-wrapper p-3">
+            <div class="row align-items-end">
+                <div id="terrain-select" class="col-md-10">
+                </div>
+            </div>
+            <div>
+                <div id="grid">
+
+                </div>
+                <div id="grid-control">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 p-3">
+            <div id="object-settings" class="m-1 border border-dark col-md-12 text-center" hidden></div>
+        </div>
+    </div>
+</div>
+
+<div id="simulationView" hidden>
+<div class="m-5">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card my-4">
+                <div class="card-body">
+                    <div class="card-title">Simulation</div>
+                    <div class="card-body">
+                        <canvas id="canvas" width="600" height="600"></canvas>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="sim-stop-button" class="btn btn-danger">Stop Simulation</button>
+                        <button id="sim-start-button" class="btn btn-primary">Start Simulation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card my-4">
+                <div class="card-body">
+                    <div class="card-title">Settings</div>
+                    <div class="card-body">
+                        <div class="card-title">Amount of lines: <span id="lineAmount"></span></div>
+                        <button type="button" class="btn btn-danger" id="dec-lines">-</button>
+                        <button type="button" class="btn btn-success" id="inc-lines">+</button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="card my-4">
+                <div class="card-body">
+                    <div class="card-title">Festival lines</div>
+                </div>
+            </div>
+            <div class="card my-4">
+                <div class="card-body">
+                    <div class="card-title">Information</div>
+                    <div class="card-body" id="attendees">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
 </body>
 </html>
