@@ -67,8 +67,8 @@ export default class MainController {
         });
 
         const locations = {
-            '1850144': 'Zeist',
-            '5392171': 'Tokyo',
+            '1850144': 'Tokyo',
+            '2743977': 'Zeist',
         }
 
         for (const cityId in locations) {

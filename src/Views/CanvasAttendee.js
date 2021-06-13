@@ -1,9 +1,8 @@
-import AttendeeController from "../controllers/AttendeeController";
-
 export default class CanvasAttendee{
 
     constructor(context, squares , attendeeController) {
         this.squares = squares;
+        this.people = [];
         this.renderAttendeeData(attendeeController);
         this.setVisitorPosition(context);
     }
@@ -11,9 +10,8 @@ export default class CanvasAttendee{
     async renderAttendeeData(attendeeController) {
         const group = await attendeeController.getAttendees();
         document.getElementById("attendees").innerHTML = "";
-        let people = [];
-        group.persons.forEach(e => people.push(e.name))
-        document.getElementById("attendees").innerHTML = people;
+        group.persons.forEach(e => this.people.push(e.name))
+        document.getElementById("attendees").innerHTML = this.people;
     }
 
     renderAttendeeDot(context, x, y){
@@ -25,13 +23,12 @@ export default class CanvasAttendee{
 
     setVisitorPosition(context){
         let region = this.randomRegion();
-        let randomX = Math.random() * ((region.x + 40) - region.x) + region.x;
-        let randomY = Math.random() * ((region.y + 40) - region.y) + region.y;
-        this.renderAttendeeDot(context, randomX, randomY);
+            let randomX = Math.random() * ((region.x + 40) - region.x) + region.x;
+            let randomY = Math.random() * ((region.y + 40) - region.y) + region.y;
+            this.renderAttendeeDot(context, randomX, randomY);
     }
 
     randomRegion(){
-        // console.log(this.squares.length + " please dont be undefined")
         return this.squares[Math.floor(Math.random() * this.squares.length)];
     }
 }

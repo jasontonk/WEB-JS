@@ -34,3 +34,11 @@
     max-height: 450px;
     overflow: auto;
 }
+
+#weather--image{
+    width:40px;height:40px;
+}
+
+#canvas{
+    border:1px solid #c3c3c3;
+}

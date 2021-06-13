@@ -12,8 +12,6 @@ export default class GridView {
         this.simcontroller = new SimulationController();
         this.gridController = gridController;
         this.canvasSquares = [];
-        this.simulationIsInProgress = false;
-        this.currentVisitors = 0;
         this.renderSimulation();
         this.renderSettings();
         this.renderGrid();
@@ -30,11 +28,13 @@ export default class GridView {
             this.simcontroller.decreaseLineCount();
             this.renderSettings();
         }, false);
-        let button = document.getElementById("sim-start-button")
-        button.addEventListener("click", (e) => {
+        document.getElementById("sim-start-button").addEventListener("click", (e) => {
+            this.simulationIsInProgress = true;
             this.lineEntrance(this.simcontroller);
-            // let canvas = new CanvasAttendee();
-            // canvas.renderAttendeeData();
+        }, false);
+        document.getElementById("sim-stop-button").addEventListener("click", (e) => {
+            this.simulationIsInProgress = false;
+            this.lineEntrance(this.simcontroller);
         }, false);
     }
 
@@ -75,7 +75,7 @@ export default class GridView {
                             foodimage.onload = function () {
                                 ctx.drawImage(foodimage, i * offsetX, j * offsetY, 40, 40);
                             }
-                            this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY));
+                            this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY, object.maxVisitors));
                             foodimage.src = 'https://prd-upload-images.newyorkpizza.nl/Products/Original/Hot_dog_pizza-6338.png';
                             break;
                         case "tent":
@@ -83,7 +83,7 @@ export default class GridView {
                             tentimg.onload = function () {
                                 ctx.drawImage(tentimg, i * offsetX, j * offsetY, 40, 40);
                             }
-                            this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY));
+                            this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY, Math.round(object.maxVisitors / 9)));
                             tentimg.src = 'https://www.obelink.nl/media/catalog/product/cache/91ee885c030d6b6bac91d1651998b59b/1/2/123895-123895-images_main-obelink_sahara_400_101-ecommerce.jpeg';
                             break;
                         case "prullenbak":
@@ -121,7 +121,6 @@ export default class GridView {
                     }
                 } else {
                     ctx.fillRect(i * offsetX, j * offsetY, 40, 40);
-                    // console.log("ogngiengelngeignig")
                     this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY))
                 }
 
@@ -132,9 +131,8 @@ export default class GridView {
 
 
     lineEntrance(simcontroller) {
-        let attendees = 500;
         for (let i = 0; i <= simcontroller.lineCount; i++) {
-            window.setInterval(this.generateAudience, (Math.random() + 1) * 2000, simcontroller, this.canvasSquares)
+            window.setInterval(this.generateAudience, (Math.random() + 1) * 2000, simcontroller, this.canvasSquares);
         }
     }
 
@@ -142,7 +140,6 @@ export default class GridView {
         let sim = simcontroller;
         const context = document.getElementById('canvas').getContext('2d');
         let attcontroller = new AttendeeController();
-        console.log(sim)
         sim.setCurrentPeople(attcontroller.amount);
         new CanvasAttendee(context, canvasSquares, attcontroller);
     }
@@ -160,15 +157,12 @@ export default class GridView {
     renderGrid() {
         this.grid.innerHTML = '';
         for (let i = 0; i < this.gridArray.length; i++) {
-
-            // Columns are i. Rows are j.
             let column = this.gridArray[i];
             let col = document.createElement("div");
 
             for (let j = 0; j < column.length; j++) {
                 let div = document.createElement("div");
-                //
-                //divi.innerHTML = i + ", " + j;
+
                 div.dataset.col = i.toString();
                 div.dataset.row = j.toString();
                 div.classList.add("gridSquare");
@@ -185,8 +179,6 @@ export default class GridView {
                 div.addEventListener("click", (e) => this.gridController.selectObject(e))
                 col.append(div);
             }
-
-            //col.style.display = "inline-block";
             this.grid.append(col);
         }
     }
