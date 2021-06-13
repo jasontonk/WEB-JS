@@ -1,6 +1,7 @@
 import {SimulationController} from "../Imports"
 import CanvasAttendee from "../Views/CanvasAttendee";
 import CanvasSquare from "../Views/CanvasSquare";
+import AttendeeController from "../controllers/AttendeeController";
 export default class GridView {
 
     constructor(width, height, gridArray, gridController) {
@@ -10,6 +11,7 @@ export default class GridView {
         this.simcontroller = new SimulationController();
         this.gridController = gridController;
         this.canvasSquares = [];
+        this.currentVisitors = 0;
         this.renderSimulation();
         this.renderSettings();
         this.renderGrid();
@@ -122,64 +124,20 @@ export default class GridView {
         let attendees = 500;
         // console.log(this)
         // console.log(simcontroller + "ongie");
-        window.setInterval(this.generateAudience, (Math.random() + 1) * 2000, simcontroller, this.canvasSquares)
+        for (let i = 0; i <= simcontroller.lineCount; i++) {
+            window.setInterval(this.generateAudience, (Math.random() + 1) * 2000, simcontroller, this.canvasSquares)
+        }
     }
 
     generateAudience(simcontroller, canvasSquares) {
-        // console.log(this);
-        // dot count
-        // let amountOfPeople = audience;
-        // center point
-        // const center = {x: 300, y: 300};
-        // max distance from the center
-        // const radius = 300;
-        // centripetal force, the larger it gets the more concentrated the dots are
-        // const centripetal = 2.5;
-        //
-        // let group = function randomIntFromInterval(min, max) { // min and max included
-        //     return Math.floor(Math.random() * (max - min + 1) + min)
-        // }
-        // let r = Math.random();
-        // console.log("hoa " + simcontroller);
-        // for 1 person
+        let sim = simcontroller;
         const context = document.getElementById('canvas').getContext('2d');
             // Generate adience based on amount of lines
-            for (let i = 0; i <= simcontroller.lineCount; i++) {
+                let attcontroller = new AttendeeController();
+                console.log(sim)
+                sim.setCurrentPeople(attcontroller.amount);
                 // console.log(this);
-                // console.log(this.canvasSquares + "please dont be undefined")
-                new CanvasAttendee(context, canvasSquares);
-                // Get random value to see if its one person or a group.
-                // if (r > 0.5) {
-                    // // console.log("one person");
-                    // for (let i = 0; i <= 1; i++) {
-                    //     context.beginPath();
-                    //     const dist = (Math.random() ** centripetal) * radius;
-                    //     const angle = Math.random() * Math.PI * 2;
-                    //     let rand_x = dist * Math.cos(angle) + center.x;
-                    //     let rand_y = dist * Math.sin(angle) + center.y;
-                    //     context.arc(rand_x, rand_y, 2, 1, 2 * Math.PI);
-                    //     context.fillStyle = "#0855A2";
-                    //     context.fill();
-                    //     context.closePath();
-                // }
-                // }
-                // else {
-                    // // console.log("group");
-                    // for (let i = 0; i <= group(2, 4); i++) {
-                    //     context.beginPath();
-                    //     const dist = (Math.random() ** centripetal) * radius;
-                    //     const angle = Math.random() * Math.PI * 2;
-                    //     let rand_x = dist * Math.cos(angle) + center.x;
-                    //     let rand_y = dist * Math.sin(angle) + center.y;
-                    //     context.arc(rand_x, rand_y, 2, 1, 2 * Math.PI);
-                    //     context.fillStyle = "#0855A2";
-                    //     context.fill();
-                    //     context.closePath();
-                // }
-
-
-        }
-        // createBlueDots(this.simcontroller);
+                new CanvasAttendee(context, canvasSquares, attcontroller);
     }
 
     renderSettings(){
