@@ -1,6 +1,6 @@
 export default class AttendeeController{
     constructor() {
-        this.amount = Math.floor(Math.random() * (0 - 3 + 1)) + 3;
+        this.amount = Math.floor(Math.random() * (0 - 4 + 1)) + 4;
     }
 
     async getAttendees() {
