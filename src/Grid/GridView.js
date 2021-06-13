@@ -1,4 +1,6 @@
 import {SimulationController} from "../Imports"
+import CanvasAttendee from "../Views/CanvasAttendee";
+import CanvasSquare from "../Views/CanvasSquare";
 export default class GridView {
 
     constructor(width, height, gridArray, gridController) {
@@ -7,6 +9,7 @@ export default class GridView {
         this.gridArray = gridArray;
         this.simcontroller = new SimulationController();
         this.gridController = gridController;
+        this.canvasSquares = [];
         this.renderSimulation();
         this.renderSettings();
         this.renderGrid();
@@ -24,7 +27,11 @@ export default class GridView {
             this.renderSettings();
         }, false);
         let button = document.getElementById("sim-start-button")
-        button.addEventListener("click", (e) => this.lineEntrance(this.simcontroller), false);
+        button.addEventListener("click", (e) => {
+            this.lineEntrance(this.simcontroller);
+            // let canvas = new CanvasAttendee();
+            // canvas.renderAttendeeData();
+        }, false);
     }
 
     renderSimulation() {
@@ -101,6 +108,8 @@ export default class GridView {
                     }
                 } else {
                     ctx.fillRect(i * offsetX, j * offsetY, 40, 40);
+                    // console.log("ogngiengelngeignig")
+                    this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY))
                 }
 
 
@@ -111,64 +120,66 @@ export default class GridView {
 
     lineEntrance(simcontroller) {
         let attendees = 500;
-        console.log(simcontroller + "ongie");
-        window.setInterval(this.generateAudience, (Math.random() + 1) * 2000, simcontroller)
+        // console.log(this)
+        // console.log(simcontroller + "ongie");
+        window.setInterval(this.generateAudience, (Math.random() + 1) * 2000, simcontroller, this.canvasSquares)
     }
 
-    generateAudience(simcontroller) {
-        console.log("generating");
+    generateAudience(simcontroller, canvasSquares) {
+        // console.log(this);
         // dot count
         // let amountOfPeople = audience;
         // center point
-        const center = {x: 300, y: 300};
+        // const center = {x: 300, y: 300};
         // max distance from the center
-        const radius = 300;
+        // const radius = 300;
         // centripetal force, the larger it gets the more concentrated the dots are
-        const centripetal = 2.5;
-
-        const context = document.getElementById('canvas').getContext('2d');
-
-        let group = function randomIntFromInterval(min, max) { // min and max included
-            return Math.floor(Math.random() * (max - min + 1) + min)
-        }
-        let r = Math.random();
-        console.log("hoa " + simcontroller);
+        // const centripetal = 2.5;
+        //
+        // let group = function randomIntFromInterval(min, max) { // min and max included
+        //     return Math.floor(Math.random() * (max - min + 1) + min)
+        // }
+        // let r = Math.random();
+        // console.log("hoa " + simcontroller);
         // for 1 person
-        let createBlueDots = function () {
+        const context = document.getElementById('canvas').getContext('2d');
             // Generate adience based on amount of lines
-            for (let i = 0; i <=  simcontroller.lineCount; i++) {
+            for (let i = 0; i <= simcontroller.lineCount; i++) {
+                // console.log(this);
+                // console.log(this.canvasSquares + "please dont be undefined")
+                new CanvasAttendee(context, canvasSquares);
                 // Get random value to see if its one person or a group.
-                if (r > 0.5) {
-                    // console.log("one person");
-                    for (let i = 0; i <= 1; i++) {
-                        context.beginPath();
-                        const dist = (Math.random() ** centripetal) * radius;
-                        const angle = Math.random() * Math.PI * 2;
-                        let rand_x = dist * Math.cos(angle) + center.x;
-                        let rand_y = dist * Math.sin(angle) + center.y;
-                        context.arc(rand_x, rand_y, 2, 1, 2 * Math.PI);
-                        context.fillStyle = "#0855A2";
-                        context.fill();
-                        context.closePath();
-                    }
-                } else {
-                    // console.log("group");
-                    for (let i = 0; i <= group(2, 4); i++) {
-                        context.beginPath();
-                        const dist = (Math.random() ** centripetal) * radius;
-                        const angle = Math.random() * Math.PI * 2;
-                        let rand_x = dist * Math.cos(angle) + center.x;
-                        let rand_y = dist * Math.sin(angle) + center.y;
-                        context.arc(rand_x, rand_y, 2, 1, 2 * Math.PI);
-                        context.fillStyle = "#0855A2";
-                        context.fill();
-                        context.closePath();
-                    }
-                }
-            }
-        }
-        createBlueDots(this.simcontroller);
+                // if (r > 0.5) {
+                    // // console.log("one person");
+                    // for (let i = 0; i <= 1; i++) {
+                    //     context.beginPath();
+                    //     const dist = (Math.random() ** centripetal) * radius;
+                    //     const angle = Math.random() * Math.PI * 2;
+                    //     let rand_x = dist * Math.cos(angle) + center.x;
+                    //     let rand_y = dist * Math.sin(angle) + center.y;
+                    //     context.arc(rand_x, rand_y, 2, 1, 2 * Math.PI);
+                    //     context.fillStyle = "#0855A2";
+                    //     context.fill();
+                    //     context.closePath();
+                // }
+                // }
+                // else {
+                    // // console.log("group");
+                    // for (let i = 0; i <= group(2, 4); i++) {
+                    //     context.beginPath();
+                    //     const dist = (Math.random() ** centripetal) * radius;
+                    //     const angle = Math.random() * Math.PI * 2;
+                    //     let rand_x = dist * Math.cos(angle) + center.x;
+                    //     let rand_y = dist * Math.sin(angle) + center.y;
+                    //     context.arc(rand_x, rand_y, 2, 1, 2 * Math.PI);
+                    //     context.fillStyle = "#0855A2";
+                    //     context.fill();
+                    //     context.closePath();
+                // }
 
+
+        }
+        // createBlueDots(this.simcontroller);
     }
 
     renderSettings(){
