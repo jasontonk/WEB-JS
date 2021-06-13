@@ -4,6 +4,7 @@
   "description": "Avans school project voor WEB-JS.",
   "private": true,
   "dependencies": {
+    "cypress": "^7.5.0",
     "webpack": "^5.27.1",
     "webpack-cli": "^4.5.0"
   },

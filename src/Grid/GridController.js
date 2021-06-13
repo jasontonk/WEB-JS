@@ -7,10 +7,12 @@ export default class GridController {
         this.view = null;
     }
 
-    renderView(){
+    renderView(isLocked){
         this.view.setGridArray(this.terrainController.terrain.getGridArray());
         this.view.renderGrid();
-        this.view.renderSimulation();
+        if (isLocked) {
+            this.view.renderSimulation();
+        }
         this.view.renderGridControls();
     }
 
@@ -19,14 +21,12 @@ export default class GridController {
     }
 
     lockGrid(){
-        console.log('Terrein vastzetten');
         this.terrainController.lockCurrentTerrain();
         //TODO lock terrain
     }
     selectObject(e){
         let col = e.target.getAttribute('data-col');
         let row = e.target.getAttribute('data-row');
-        console.log(col + ' - ' + row);
         this.terrainController.selectObject(col, row)
     }
 
