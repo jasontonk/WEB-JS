@@ -9,9 +9,10 @@ export default class GridView {
         this.grid = document.getElementById('grid');
         this.gridControl = document.getElementById('grid-control');
         this.gridArray = gridArray;
-        this.simcontroller = new SimulationController();
+        this.simcontroller = new SimulationController(this);
         this.gridController = gridController;
         this.canvasSquares = [];
+        this.intervals = [];
         this.simulationIsInProgress = false;
         this.currentVisitors = 0;
         this.renderSimulation();
@@ -36,6 +37,19 @@ export default class GridView {
             // let canvas = new CanvasAttendee();
             // canvas.renderAttendeeData();
         }, false);
+    }
+
+    renderLines(lines){
+        let linesDiv = document.getElementById('linesDiv');
+        linesDiv.innerHTML = '';
+        let title = document.createElement('p');
+        title.innerText = 'Festival rijen';
+        linesDiv.append(title);
+        lines.forEach((line) => {
+           let lineInfo = document.createElement('p')
+           lineInfo.innerText = 'rij ' + line.lineNumber.toString() + ': ' + line.queueLength.toString() + ' mensen in de rij';
+           linesDiv.append(lineInfo);
+        });
     }
 
     renderSimulation() {
@@ -132,24 +146,32 @@ export default class GridView {
 
 
     lineEntrance(simcontroller) {
-        let attendees = 500;
-        for (let i = 0; i <= simcontroller.lineCount; i++) {
-            window.setInterval(this.generateAudience, (Math.random() + 1) * 2000, simcontroller, this.canvasSquares)
+        let maxVisitors = this.gridController.terrainController.getMaxVisitors();
+        simcontroller.setMaxVisitors(maxVisitors);
+        for (let i = 0; i < simcontroller.lines.length; i++) {
+            window.setInterval(this.generateAudience, (Math.random() + 1) * 2000, simcontroller, this.canvasSquares, i)
         }
     }
 
-    generateAudience(simcontroller, canvasSquares) {
+    generateAudience(simcontroller, canvasSquares, lineId) {
         let sim = simcontroller;
         const context = document.getElementById('canvas').getContext('2d');
         let attcontroller = new AttendeeController();
-        console.log(sim)
-        sim.setCurrentPeople(attcontroller.amount);
-        new CanvasAttendee(context, canvasSquares, attcontroller);
+        if (!simcontroller.isFull) {
+            sim.setCurrentPeople(attcontroller.amount);
+            new CanvasAttendee(context, canvasSquares, attcontroller);
+        }
+        else{
+            simcontroller.lines[lineId].addToQueue(attcontroller.amount);
+            simcontroller.renderLines()
+        }
+        console.log('___________________________--')
+        console.log(this);
     }
 
     renderSettings() {
         document.getElementById("lineAmount").innerHTML = "";
-        document.getElementById("lineAmount").innerHTML = this.simcontroller.lineCount;
+        document.getElementById("lineAmount").innerHTML = this.simcontroller.lines.length;
     }
 
 

@@ -56,6 +56,10 @@ export default class TerrainController{
         return terrains;
     }
 
+    getMaxVisitors(){
+        return this.terrain.maxVisitors;
+    }
+
     placeObject(x, y, object){
         return this.terrain.placeObject(x, y, object);
     }
@@ -85,6 +89,7 @@ export default class TerrainController{
             this.objectSettingsView.hide();
         }
     }
+
     saveObjectSettings(object, maxVisitors = null, openTime = null, clearTime = null,
                        stallType = null, capacity = null){
         let objectIndex = this.terrain.objects.indexOf(object);
