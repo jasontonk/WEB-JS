@@ -2,11 +2,27 @@ import {GridSquare} from "../Imports";
 
 export default class Grid {
 
-    constructor() {
-        this.width = 15;
-        this.height = 15;
+    constructor(width = null, height = null, gridArray = null, objects = null) {
         this.gridArray = [];
-        this.setGrid();
+        if (width === null || height === null || gridArray === null || objects === null){
+            this.width = 15;
+            this.height = 15;
+            this.setGrid();
+        }
+        else {
+            this.width = width;
+            this.height = height;
+            gridArray.forEach((row) => {
+                let gridRow = []
+                row.forEach((square) => {
+                    let object = objects.find((object) => {
+                        return square.object !== null && object.xPos === square.object.xPos && object.yPos === square.object.yPos
+                    })
+                    gridRow.push(new GridSquare(square.row, square.column, object))
+                })
+                this.gridArray.push(gridRow);
+            });
+        }
     }
 
     setGrid(){

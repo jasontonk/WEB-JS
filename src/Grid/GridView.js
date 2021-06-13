@@ -1,14 +1,17 @@
 import {SimulationController} from "../Imports"
 export default class GridView {
 
-    constructor(width, height, gridArray) {
+    constructor(width, height, gridArray, gridController) {
         this.grid = document.getElementById('grid');
+        this.gridControl = document.getElementById('grid-control');
         this.gridArray = gridArray;
         this.simcontroller = new SimulationController();
+        this.gridController = gridController;
         this.renderSimulation();
         this.renderSettings();
         this.renderGrid();
         this.generateEvents();
+        this.renderGridControls();
     }
 
     generateEvents() {
@@ -183,31 +186,50 @@ export default class GridView {
         for (let i = 0; i < this.gridArray.length; i++) {
 
             // Columns are i. Rows are j.
-            let ongie = this.gridArray[i];
+            let column = this.gridArray[i];
             let col = document.createElement("div");
 
-            for (let j = 0; j < ongie.length; j++) {
-                let divi = document.createElement("div");
+            for (let j = 0; j < column.length; j++) {
+                let div = document.createElement("div");
                 //
                 //divi.innerHTML = i + ", " + j;
-                divi.dataset.col = i.toString();
-                divi.dataset.row = j.toString();
-                divi.classList.add("gridSquare");
-                divi.style.width = "40px";
-                divi.style.height = "40px";
-                divi.style.border = "1px dashed #FFF";
-                divi.style.borderWidth = "0.1px 0.1px 0.1px 0.1px";
+                div.dataset.col = i.toString();
+                div.dataset.row = j.toString();
+                div.classList.add("gridSquare");
+                div.style.width = "40px";
+                div.style.height = "40px";
+                div.style.border = "1px dashed #FFF";
+                div.style.borderWidth = "0.1px 0.1px 0.1px 0.1px";
                 if (this.gridArray[i][j].object === null) {
-                    divi.style.backgroundColor = "#42f56c";
-                } else {
-                    divi.innerText = this.gridArray[i][j].object.type;
-                    divi.style.backgroundColor = "#FF0000";
+                    div.style.backgroundColor = "#42f56c";
                 }
-                col.append(divi);
+                else {
+                    div.innerText = this.gridArray[i][j].object.type;
+                    div.style.backgroundColor = "#FF0000";
+                }
+                div.addEventListener("click", (e) => this.gridController.selectObject(e))
+                col.append(div);
             }
 
             //col.style.display = "inline-block";
             this.grid.append(col);
         }
     }
+
+    renderGridControls(){
+        this.gridControl.innerHTML = '';
+        this.gridControl.className = 'w-100';
+        let resetButton = document.createElement("button");
+        resetButton.innerText = 'Resetten';
+        resetButton.className = 'btn btn-outline-danger m-2 float-left';
+        resetButton.addEventListener('click', () => this.gridController.resetGrid());
+        this.gridControl.append(resetButton);
+
+        let lockButton = document.createElement("button");
+        lockButton.innerText = 'Vastzetten';
+        lockButton.className = 'btn btn-primary m-2 float-right';
+        lockButton.addEventListener('click', () => this.gridController.lockGrid());
+        this.gridControl.append(lockButton);
+    }
+
 }

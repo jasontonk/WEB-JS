@@ -27,6 +27,8 @@ export default class SetupFormView{
     }
 
     renderName(errorMessages = null){
+        this.input.value = '';
+        this.nextButton.innerText = 'Volgende';
         this.label.innerText = 'Naam van het terrein:'
 
         this.input.type = 'text';
@@ -48,6 +50,7 @@ export default class SetupFormView{
         }
     }
     renderAmountOfTents(errorMessages = null){
+        this.input.value = '';
         this.label.innerText = 'Aantal tenten op het terrein:'
 
         this.input.type = 'number';
@@ -67,6 +70,7 @@ export default class SetupFormView{
         }
     }
     renderAmountOfFoodStalls(errorMessages = null, hasTent){
+        this.input.value = '';
         this.label.innerText = 'Aantal eetkraampjes op het terrein:'
 
         this.small.className = '';
@@ -87,6 +91,7 @@ export default class SetupFormView{
         }
     }
     renderAmountOfDrinkStalls(errorMessages = null, hasTent){
+        this.input.value = '';
         this.label.innerText = 'Aantal drinkkraampjes op het terrein:'
 
         this.small.className = '';
@@ -107,6 +112,9 @@ export default class SetupFormView{
         }
     }
     renderAmountOfTrees(errorMessages = null){
+        this.input.value = '';
+        this.secondInput.value = '';
+        this.thirdInput.value = '';
         this.label.innerText = 'Aantal Hoge bomen op het terrein';
 
         this.small.className = '';
@@ -146,6 +154,7 @@ export default class SetupFormView{
 
     }
     renderAmountOfToilets(errorMessages = null){
+        this.input.value = '';
         this.secondLabel.hidden = true;
         this.secondInput.hidden = true;
         this.secondSmall.hidden = true;
@@ -171,6 +180,8 @@ export default class SetupFormView{
         }
     }
     renderAmountOfTrashCans(errorMessages = null, maxTrashCans){
+        this.input.value = '';
+        this.nextButton.innerText = 'Terrein aanmaken';
         this.label.innerText = 'Aantal prullenbakken op het terrein:'
 
         this.input.max = maxTrashCans;
