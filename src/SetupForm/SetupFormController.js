@@ -19,7 +19,7 @@ export default class SetupFormController{
 
     formNext(value, value2,  value3){
         if(this.setupForm.name === null){
-            this.setName(value);
+            this.setName(value, value2);
         }
         else if(this.setupForm.amountOfTents === -1){
             this.setAmountOfTents(value);
@@ -45,23 +45,28 @@ export default class SetupFormController{
         }
     }
 
-    setName(value){
+    setName(value1, value2){
         let isFilled = true;
         let isCorrectLength = true;
+        let hasMinVisitors = true;
 
-        if(value === null || value === ''){
+        if(value1 === null || value1 === '' || value2 === null || value2 === ''){
             isFilled = false;
         }
-        else if(value.length > 20){
+        else if(value1.length > 20){
             isCorrectLength = false;
         }
+        else if(value2 <= 0){
+            hasMinVisitors = false;
+        }
 
-        if(isFilled && isCorrectLength) {
-            this.setupForm.name = value;
+        if(isFilled && isCorrectLength && hasMinVisitors) {
+            this.setupForm.name = value1;
+            this.setupForm.maxVisitors = value2;
             this.view.renderAmountOfTents();
         }
         else{
-            this.view.renderName([isFilled, isCorrectLength]);
+            this.view.renderName([isFilled, isCorrectLength, hasMinVisitors]);
         }
     }
 

@@ -2,10 +2,11 @@ import {Grid, Object} from "../Imports";
 
 export default class Terrain{
 
-    constructor(id, name, objects, grid = null) {
-        this.isLocked = false;
+    constructor(id, name, maxVisitors, objects, isLocked = false, grid = null) {
+        this.isLocked = isLocked;
         this.id = id;
         this.name = name;
+        this.maxVisitors = maxVisitors;
         if(grid === null) {
             this.objects = objects;
             this.grid = new Grid();

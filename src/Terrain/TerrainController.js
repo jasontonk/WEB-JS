@@ -26,7 +26,7 @@ export default class TerrainController{
     addTerrain(setupform){
         let nextId = this.localStorage.length;
         let objects = this.elementsPoolController.createObjects(setupform);
-        let terrain = new Terrain(nextId, setupform.name, objects, this.gridController.grid);
+        let terrain = new Terrain(nextId, setupform.name, setupform.maxVisitors,  objects, this.gridController.grid);
 
         this.localStorage.setItem(nextId.toString(),JSON.stringify(terrain));
 
@@ -42,8 +42,9 @@ export default class TerrainController{
 
         this.localStorage.setItem(this.terrain.id.toString(), JSON.stringify(this.terrain));
         let newTerrain = JSON.parse(this.localStorage.getItem(terrainIndex.toString()));
-        this.terrain = new Terrain(newTerrain.id, newTerrain.name, newTerrain.objects, newTerrain.grid);
+        this.terrain = new Terrain(newTerrain.id, newTerrain.name, newTerrain.maxVisitors, newTerrain.objects, newTerrain.isLocked, newTerrain.grid);
         this.dragAndDropController.objects = this.terrain.objects;
+        console.log(this.terrain);
         this.resetViews();
     }
 
