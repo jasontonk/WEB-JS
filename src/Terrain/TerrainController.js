@@ -44,7 +44,6 @@ export default class TerrainController{
         let newTerrain = JSON.parse(this.localStorage.getItem(terrainIndex.toString()));
         this.terrain = new Terrain(newTerrain.id, newTerrain.name, newTerrain.maxVisitors, newTerrain.objects, newTerrain.isLocked, newTerrain.grid);
         this.dragAndDropController.objects = this.terrain.objects;
-        console.log(this.terrain);
         this.resetViews();
     }
 
@@ -74,7 +73,7 @@ export default class TerrainController{
     }
 
     resetViews(){
-        this.gridController.renderView();
+        this.gridController.renderView(this.terrain.isLocked);
         this.elementsPoolController.renderView(this.terrain.objects);
         this.dragAndDropController.generateEvents();
         this.terrainView.render()

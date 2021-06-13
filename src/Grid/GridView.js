@@ -15,7 +15,9 @@ export default class GridView {
         this.intervals = [];
         this.simulationIsInProgress = false;
         this.currentVisitors = 0;
-        this.renderSimulation();
+        if (gridController.terrainController.terrain.isLocked) {
+            this.renderSimulation();
+        }
         this.renderSettings();
         this.renderGrid();
         this.generateEvents();
@@ -135,7 +137,6 @@ export default class GridView {
                     }
                 } else {
                     ctx.fillRect(i * offsetX, j * offsetY, 40, 40);
-                    // console.log("ogngiengelngeignig")
                     this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY))
                 }
 
@@ -165,8 +166,6 @@ export default class GridView {
             simcontroller.lines[lineId].addToQueue(attcontroller.amount);
             simcontroller.renderLines()
         }
-        console.log('___________________________--')
-        console.log(this);
     }
 
     renderSettings() {

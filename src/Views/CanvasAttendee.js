@@ -31,7 +31,6 @@ export default class CanvasAttendee{
     }
 
     randomRegion(){
-        // console.log(this.squares.length + " please dont be undefined")
         return this.squares[Math.floor(Math.random() * this.squares.length)];
     }
 }

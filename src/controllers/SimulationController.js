@@ -31,7 +31,6 @@ export default class simulationController{
     }
 
     setCurrentPeople(currPeople){
-        console.log("added " + currPeople + " people")
         this.currentPeople += currPeople;
         if (this.currentPeople >= this.maxPeople){
             this.isFull = true;
