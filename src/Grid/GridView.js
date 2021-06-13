@@ -2,6 +2,7 @@ import {SimulationController} from "../Imports"
 import CanvasAttendee from "../Views/CanvasAttendee";
 import CanvasSquare from "../Views/CanvasSquare";
 import AttendeeController from "../controllers/AttendeeController";
+
 export default class GridView {
 
     constructor(width, height, gridArray, gridController) {
@@ -11,6 +12,7 @@ export default class GridView {
         this.simcontroller = new SimulationController();
         this.gridController = gridController;
         this.canvasSquares = [];
+        this.simulationIsInProgress = false;
         this.currentVisitors = 0;
         this.renderSimulation();
         this.renderSettings();
@@ -20,11 +22,11 @@ export default class GridView {
     }
 
     generateEvents() {
-        document.getElementById("inc-lines").addEventListener("click",() => {
+        document.getElementById("inc-lines").addEventListener("click", () => {
             this.simcontroller.increaseLineCount();
             this.renderSettings();
         }, false);
-        document.getElementById("dec-lines").addEventListener("click",() => {
+        document.getElementById("dec-lines").addEventListener("click", () => {
             this.simcontroller.decreaseLineCount();
             this.renderSettings();
         }, false);
@@ -46,6 +48,7 @@ export default class GridView {
         for (let i = 0; i < this.gridArray.length; i++) {
             let ongie = this.gridArray[i];
             ctx.fillRect(i * offsetX, 0, 40, 40);
+            this.canvasSquares.push(new CanvasSquare(i * offsetX, 0));
             for (let j = 0; j < ongie.length; j++) {
                 let object = this.gridArray[i][j].object
                 if (object != null) {
@@ -55,6 +58,7 @@ export default class GridView {
                             toiletimg.onload = function () {
                                 ctx.drawImage(toiletimg, i * offsetX, j * offsetY, 40, 40);
                             };
+                            this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY));
                             toiletimg.src = 'https://images.unsplash.com/photo-1589824783837-6169889fa20f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80';
 
                             break;
@@ -63,6 +67,7 @@ export default class GridView {
                             drinkimg.onload = function () {
                                 ctx.drawImage(drinkimg, i * offsetX, j * offsetY, 40, 40);
                             }
+                            this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY));
                             drinkimg.src = 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Tumbler_of_cola_with_ice.jpg';
                             break;
                         case "eetkraam":
@@ -70,6 +75,7 @@ export default class GridView {
                             foodimage.onload = function () {
                                 ctx.drawImage(foodimage, i * offsetX, j * offsetY, 40, 40);
                             }
+                            this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY));
                             foodimage.src = 'https://prd-upload-images.newyorkpizza.nl/Products/Original/Hot_dog_pizza-6338.png';
                             break;
                         case "tent":
@@ -77,6 +83,7 @@ export default class GridView {
                             tentimg.onload = function () {
                                 ctx.drawImage(tentimg, i * offsetX, j * offsetY, 40, 40);
                             }
+                            this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY));
                             tentimg.src = 'https://www.obelink.nl/media/catalog/product/cache/91ee885c030d6b6bac91d1651998b59b/1/2/123895-123895-images_main-obelink_sahara_400_101-ecommerce.jpeg';
                             break;
                         case "prullenbak":
@@ -84,6 +91,7 @@ export default class GridView {
                             trashimg.onload = function () {
                                 ctx.drawImage(trashimg, i * offsetX, j * offsetY, 40, 40);
                             }
+                            this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY));
                             trashimg.src = 'https://i.pinimg.com/originals/f0/13/ac/f013ac551d3eb4bead0b2a0cf5e60dd1.png';
                             break;
                         case "hoge boom":
@@ -91,6 +99,7 @@ export default class GridView {
                             highimg.onload = function () {
                                 ctx.drawImage(highimg, i * offsetX, j * offsetY, 40, 40);
                             }
+                            this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY));
                             highimg.src = 'https://www.onzenatuur.be/media/cache/750_width/uploads/media/5e78da18df700/shutterstock-671579608.jpg';
                             break;
                         case "schaduw boom":
@@ -98,6 +107,7 @@ export default class GridView {
                             shadowimg.onload = function () {
                                 ctx.drawImage(shadowimg, i * offsetX, j * offsetY, 40, 40);
                             }
+                            this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY));
                             shadowimg.src = 'https://thumbs.dreamstime.com/z/shadow-tree-vector-101778300.jpg';
                             break;
                         case "brede boom":
@@ -105,6 +115,7 @@ export default class GridView {
                             widewimg.onload = function () {
                                 ctx.drawImage(widewimg, i * offsetX, j * offsetY, 40, 40);
                             }
+                            this.canvasSquares.push(new CanvasSquare(i * offsetX, j * offsetY));
                             widewimg.src = 'https://image.shutterstock.com/image-photo/oak-tree-isolated-on-white-260nw-79172758.jpg';
                             break;
                     }
@@ -122,8 +133,6 @@ export default class GridView {
 
     lineEntrance(simcontroller) {
         let attendees = 500;
-        // console.log(this)
-        // console.log(simcontroller + "ongie");
         for (let i = 0; i <= simcontroller.lineCount; i++) {
             window.setInterval(this.generateAudience, (Math.random() + 1) * 2000, simcontroller, this.canvasSquares)
         }
@@ -132,15 +141,13 @@ export default class GridView {
     generateAudience(simcontroller, canvasSquares) {
         let sim = simcontroller;
         const context = document.getElementById('canvas').getContext('2d');
-            // Generate adience based on amount of lines
-                let attcontroller = new AttendeeController();
-                console.log(sim)
-                sim.setCurrentPeople(attcontroller.amount);
-                // console.log(this);
-                new CanvasAttendee(context, canvasSquares, attcontroller);
+        let attcontroller = new AttendeeController();
+        console.log(sim)
+        sim.setCurrentPeople(attcontroller.amount);
+        new CanvasAttendee(context, canvasSquares, attcontroller);
     }
 
-    renderSettings(){
+    renderSettings() {
         document.getElementById("lineAmount").innerHTML = "";
         document.getElementById("lineAmount").innerHTML = this.simcontroller.lineCount;
     }
@@ -171,8 +178,7 @@ export default class GridView {
                 div.style.borderWidth = "0.1px 0.1px 0.1px 0.1px";
                 if (this.gridArray[i][j].object === null) {
                     div.style.backgroundColor = "#42f56c";
-                }
-                else {
+                } else {
                     div.innerText = this.gridArray[i][j].object.type;
                     div.style.backgroundColor = "#FF0000";
                 }
@@ -185,7 +191,7 @@ export default class GridView {
         }
     }
 
-    renderGridControls(){
+    renderGridControls() {
         this.gridControl.innerHTML = '';
         this.gridControl.className = 'w-100';
         let resetButton = document.createElement("button");
