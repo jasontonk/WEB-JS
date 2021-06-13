@@ -6,6 +6,7 @@ export default class SetupFormController{
     constructor(elementsPoolController, MainController) {
         this.elementsPoolController = elementsPoolController;
         this.view = new SetupFormView(this);
+        this.maincontroller = MainController;
         this.setupForm = new SetupForm();
         this.view.renderName();
         this.maincontroller = MainController;
